@@ -1,0 +1,11 @@
+/* Six small collectible stars across the entire site. */
+.site-star-host{position:relative}
+.site-star{width:44px;height:44px;padding:11px;z-index:9;line-height:0}
+.site-star svg{display:block;width:22px;height:22px}
+.site-star .fill,.night .site-star .fill{stroke:none;fill:var(--brand-accent);filter:drop-shadow(0 0 3px rgba(var(--brand-glow-rgb),.22))}
+.site-star:hover{transform:translate(-50%,-50%) rotate(var(--angle)) scale(1.13)}
+.site-star[hidden],#counter[hidden]{display:none!important}
+#counter{right:3%;bottom:20px;font-size:16px;min-width:94px;padding:8px 10px 23px;border-radius:13px;gap:4px;z-index:35}
+#counter .counter-star{width:23px;height:23px;margin-right:3px}
+#counter .counter-caption{font-size:7px;letter-spacing:1.2px;bottom:7px}
+@media(max-width:600px){.site-star{padding:12px}.site-star svg{width:20px;height:20px}#counter{right:14px;bottom:14px}}

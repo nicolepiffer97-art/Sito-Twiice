@@ -1,0 +1,319 @@
+/* TWIICE: ice-led light theme, sky sections, night blue and yellow accents. */
+:root {
+  --brand-ice: #F7F8FC;
+  --brand-sky: #90CAF0;
+  --brand-night: #10205A;
+  --brand-ink: #18234A;
+  --brand-yellow: #FFC400;
+  --brand-accent: var(--brand-yellow);
+  --brand-glow-rgb: 255, 196, 0;
+  --font-body: "avenir-lt-pro", Avenir, sans-serif;
+  --font-display: "futura-pt", Futura, sans-serif;
+  --font-accent: var(--font-display);
+  font-family: var(--font-body);
+  background: var(--brand-ice);
+  color: var(--brand-ink);
+}
+body {
+  --paper: var(--brand-ice);
+  --text: var(--brand-ink);
+  --muted: #505C79;
+  --line: #18234A30;
+  --ink: var(--brand-ink);
+  --star: var(--brand-accent);
+  --light-ink: var(--brand-ink);
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+button, input, textarea { font-family: var(--font-body); }
+a:focus-visible, button:focus-visible, summary:focus-visible,
+input:focus-visible, textarea:focus-visible,
+.interest-options input:focus-visible + span {
+  outline: 3px solid var(--brand-ink);
+  outline-offset: 5px;
+}
+#sky { background: var(--brand-sky); color: var(--brand-ink); }
+.edition { color: var(--brand-ink); }
+#light {
+  border: 1px solid var(--brand-ink);
+  background: #F7F8FCEB;
+  color: var(--brand-ink);
+}
+#light:hover { background: var(--brand-ice); }
+#hint, #counter, .counter-caption { font-family: var(--font-body); }
+#hint { font-family: var(--font-accent); font-weight: 400; }
+.scribble { border-color: var(--brand-accent); border-top-width: 3px; }
+.positioning { font-family: var(--font-display); font-weight: 400; }
+.scroll-invite { color: var(--brand-ink); }
+#counter {
+  background: #F7F8FCEB;
+  color: var(--brand-ink);
+  font-variant-numeric: tabular-nums;
+}
+#counter .counter-star { fill: var(--brand-accent); stroke: var(--brand-ink); }
+.star .fill { fill: var(--brand-accent); stroke: var(--brand-ink); }
+.star .sketch { stroke: var(--brand-ink); }
+.intro, .worlds, .people, .contact { background: var(--brand-ice); }
+.projects { background: var(--brand-sky); }
+h2 {
+  font-family: var(--font-body);
+  font-weight: 200;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+h2 strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+h2 em {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -.035em;
+  color: var(--brand-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-accent);
+  text-decoration-thickness: .045em;
+  text-underline-offset: .12em;
+  text-decoration-skip-ink: none;
+}
+h3, .world-name, .person-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.text-star, .next-symbol, .contact-doodle { color: var(--brand-accent); }
+.text-link { border-bottom-color: var(--brand-accent); }
+.world-no { font-family: var(--font-body); font-style: normal; }
+.world-detail a { text-decoration-color: var(--brand-accent); }
+.art-brand i { background: var(--brand-sky); border-color: #18234A55; }
+.art-brand i:nth-child(2) { background: var(--brand-ice); border-color: var(--brand-ink); }
+.art-brand i:nth-child(3) { background: var(--brand-ice); border-bottom: 4px solid var(--brand-accent); }
+.art-brand b { font-family: var(--font-display); font-weight: 700; }
+.art-motion i { background: radial-gradient(circle at 30% 25%, #F7F8FC, #90CAF0 50%, #287EAE); }
+.art-motion i:nth-child(2) { background: radial-gradient(circle at 30% 25%, #F7F8FC, #90CAF0 50%, #10205A); }
+.art-motion i:nth-child(3) { background: linear-gradient(135deg, #F7F8FC, #90CAF0 55%, #287EAE); }
+.art-interaction i { background: var(--brand-sky); border-color: #18234A60; }
+.art-interaction i:first-child:after { background: var(--brand-ice); border-color: #18234A60; }
+.art-interaction i:last-child { background: var(--brand-accent); }
+.art-interaction b { color: var(--brand-ink); }
+.project-star { color: var(--brand-accent); }
+.project-play { background: var(--brand-ice); color: var(--brand-ink); }
+.person-card { background: var(--brand-ice); border-color: #18234A40; }
+.person-card.raffaele { background: var(--brand-sky); }
+.person-symbol { font-family: var(--font-accent); font-style: normal; }
+.person-symbol span, .raffaele .person-symbol span { color: var(--brand-accent); }
+.contact textarea { font-family: var(--font-body); color: var(--text); border-color: var(--line); }
+.contact textarea::placeholder, .form-note { color: var(--muted); }
+.interest-options span { border-color: var(--line); }
+.interest-options input:checked + span, .brief-submit {
+  background: var(--brand-ink);
+  color: var(--brand-ice);
+  border-color: var(--brand-ink);
+}
+.brief-submit:hover { background: var(--brand-night); }
+.brief-submit span { color: var(--brand-accent); }
+.site-footer { background: var(--brand-ice); color: var(--brand-ink); border-top: 1px solid var(--line); }
+.site-footer img { filter: none; }
+
+/* Same typography, inverse surfaces: no green or yellow page backgrounds. */
+body.night {
+  --brand-accent: #C2FDC7;
+  --brand-glow-rgb: 194, 253, 199;
+  --paper: var(--brand-night);
+  --text: var(--brand-ice);
+  --muted: #C0CAE3;
+  --line: #F7F8FC30;
+  --ink: var(--brand-accent);
+  --star: var(--brand-accent);
+  --light-ink: var(--brand-ice);
+  color: var(--text);
+  background: var(--paper);
+}
+.night #sky { background: var(--brand-night); color: var(--brand-ice); }
+.night .backdrop img { filter: brightness(.25) saturate(.9); opacity: .5; }
+.night .intro, .night .worlds, .night .people, .night .contact, .night .site-footer { background: var(--brand-night); color: var(--brand-ice); }
+.night .projects { background: #172B65; }
+.night h2 em, .night #hint { color: var(--brand-accent); }
+.night #light { color: var(--brand-ice); background: var(--brand-night); border-color: var(--brand-accent); }
+.night #light:hover { background: #172B65; }
+.night .edition, .night .scroll-invite { color: var(--brand-ice); }
+.night .star .fill {
+  fill: var(--brand-accent);
+  stroke: var(--brand-accent);
+  filter: drop-shadow(0 0 5px rgba(var(--brand-glow-rgb), .4)) drop-shadow(0 0 13px rgba(var(--brand-glow-rgb), .22));
+}
+.night #counter { background: #10205AEB; color: var(--brand-ice); }
+.night #counter .counter-star { fill: var(--brand-accent); stroke: var(--brand-accent); filter: drop-shadow(0 0 8px rgba(var(--brand-glow-rgb), .3)); }
+.night .person-card { color: var(--brand-ink); background: var(--brand-ice); }
+.night .person-card.raffaele { background: var(--brand-sky); }
+.night .contact textarea { color: var(--text); border-color: var(--line); }
+.night .contact textarea::placeholder, .night .form-note { color: var(--muted); }
+.night .interest-options span { border-color: #F7F8FC70; }
+.night .interest-options input:checked + span, .night .brief-submit { background: var(--brand-ice); color: var(--brand-night); border-color: var(--brand-ice); }
+.night .brief-submit:hover { background: var(--brand-sky); }
+.night a:focus-visible, .night button:focus-visible, .night summary:focus-visible,
+.night input:focus-visible, .night textarea:focus-visible,
+.night .interest-options input:focus-visible + span { outline-color: var(--brand-accent); }
+@media(max-width:600px) {
+  h2 { font-size: clamp(43px, 10.8vw, 57px); }
+  .world-name { letter-spacing: -.035em; }
+  .contact textarea { font-size: 16px; }
+}
+
+/* Fade the illustrated sky into the next section in both themes. */
+#sky::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: clamp(160px, 25svh, 300px);
+  background: linear-gradient(to bottom, transparent, var(--paper));
+  pointer-events: none;
+  z-index: 5;
+}
+.invitation { z-index: 6; }
+.star { z-index: 6; }
+
+/* Transparent PNG artwork has exact RGB #C2FDC7; never recolor it with CSS. */
+.night h1 img, .night .edition img, .night .project-logo, .night .site-footer img {
+  filter: none;
+}
+.brand-star {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -.1em;
+}
+.star .fill, .night .star .fill,
+#counter .counter-star, .night #counter .counter-star {
+  fill: var(--brand-accent);
+  stroke: none;
+}
+.star .sketch, .counter-sketch { display: none; }
+
+/* Photographic opening: the logo is always visible, without cloud overlays. */
+.backdrop img { object-position: center bottom; }
+#reveal { pointer-events: none; }
+#reveal h1, #reveal.open h1 { opacity: 1; transition: none; }
+.project-sky { object-position: center bottom; }
+
+/* The star hunt belongs exclusively to the night theme. */
+body:not(.night) #stars { visibility: hidden; pointer-events: none; }
+body:not(.night) #counter, body:not(.night) #trails { display: none; }
+.night #stars { visibility: visible; }
+
+/* Quiet persistent navigation; the main wordmark owns the opening viewport. */
+#sky > header { position: fixed; z-index: 30; pointer-events: none; }
+#sky > header > * { pointer-events: auto; }
+#sky > header .edition[hidden] { display: none; }
+#light, #light:hover, #light:active,
+.night #light, .night #light:hover, .night #light:active {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* The original approved People Deck study, rather than substitute profile cards. */
+.people-layout { grid-template-columns: 1fr; gap: 42px; }
+.people-layout > div:first-child { max-width: 770px; }
+.people-layout .people-copy { max-width: 630px; }
+.people-deck { margin: 0; width: 100%; min-width: 0; }
+.people-deck a { display: block; border-radius: 12px; overflow: hidden; }
+.people-deck img { display: block; width: 100%; height: auto; }
+.people-deck figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 16px; font-size: 10px; line-height: 1.6; color: var(--muted); }
+.people-deck figcaption span:first-child { letter-spacing: 1.5px; }
+@media (max-width:600px) { .people-layout { gap: 26px; } .people-deck a { border-radius: 6px; } }
+
+/* Fixed right-hand control, independent of whether the compact logo is visible. */
+#sky > header {
+  inset: 0 0 auto;
+  padding: 30px 4% 36px 5.5%;
+  min-height: 122px;
+  align-items: flex-start;
+  isolation: isolate;
+}
+#sky > header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -40px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #fff 0%, #fff 44%, rgba(255,255,255,.94) 61%, rgba(255,255,255,.5) 80%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+#sky > header.header-over-content::before { opacity: 1; }
+#sky > header #light {
+  margin-left: auto;
+  flex: 0 0 auto;
+  min-width: 190px;
+  justify-content: center;
+  color: #fff;
+  border-color: #fff;
+  background: transparent;
+  transition: color .25s ease, border-color .25s ease;
+}
+body:not(.night) #sky > header.header-over-content #light {
+  color: var(--brand-night);
+  border-color: var(--brand-night);
+}
+.night #sky > header::before {
+  background: linear-gradient(to bottom, #10205A 0%, #10205A 44%, rgba(16,32,90,.94) 61%, rgba(16,32,90,.5) 80%, rgba(16,32,90,0) 100%);
+}
+@media(max-width:600px) {
+  #sky > header { padding: 25px 6% 28px 7%; min-height: 105px; }
+  #sky > header::before { bottom: -28px; }
+  #sky > header #light { min-width: 160px; }
+}
+
+/* Original badges in the two-card arrangement. */
+.people-layout { grid-template-columns: 1fr 1.1fr; gap: 60px; }
+.people-layout > div:first-child { max-width: none; }
+.people-layout .people-copy { max-width: 365px; }
+.original-badges { position: relative; gap: 22px; padding: 25px 5px 45px; }
+.original-badge { margin: 0; width: calc(50% - 11px); min-width: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 16px 30px #18234A17; transform: rotate(-5deg); transition: transform .35s; }
+.original-badge svg { display: block; width: 100%; height: auto; }
+.original-badge.badge-tech { transform: rotate(7deg) translateY(35px); }
+.original-badge:hover { transform: rotate(0deg) translateY(-9px); }
+.original-badge.badge-tech:hover { transform: rotate(0deg) translateY(20px); }
+.badge-concept-note { position: absolute; top: 100%; left: 0; width: 100%; font-size: 9px; text-align: center; color: var(--muted); line-height: 1.5; }
+/* One professional display family; emphasis comes from weight and color. */
+h2 { font-family: var(--font-display); font-weight: 300; }
+h2 strong { font-family: var(--font-display); font-weight: 700; }
+h2 em, .night h2 em { font-family: var(--font-display); font-style: normal; font-weight: 600; letter-spacing: -.035em; color: var(--brand-accent); text-decoration: none; }
+.night h2 em { color: var(--brand-accent); }
+#hint { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; transform: none; line-height: 1.15; }
+.scribble { display: none; }
+.positioning { margin-top: 26px; }
+@media(max-width:950px) { .people-layout { grid-template-columns: 1fr; gap: 24px; } .people-layout .people-copy { max-width: 550px; } .original-badges { margin-bottom: 45px; } }
+@media(max-width:600px) { .original-badges { gap: 12px; padding: 20px 0 35px; } .original-badge { width: calc(50% - 6px); border-radius: 9px; } }
+
+/* Compact light switch; keep its fixed right edge and outline treatment. */
+#sky > header #light {
+  min-width: 150px;
+  min-height: 40px;
+  padding: 8px 14px;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+#sky > header #light .lamp { width: 18px; height: 18px; }
+@media(max-width:600px) {
+  #sky > header #light { min-width: 140px; padding: 8px 12px; gap: 7px; font-size: 11px; }
+  #sky > header #light .lamp { width: 16px; height: 16px; }
+}
+
+/* Airier display typography and a calmer opening hierarchy. */
+h2 { font-weight:200; }
+#sky #reveal { height:42%; top:43%; overflow:visible; }
+#reveal h1 { inset:0 0 35px; }
+#sky .logo-payoff { position:absolute; top:calc(100% - 18px); left:0; right:0; margin:0; text-align:center; font-size:13px; letter-spacing:5px; line-height:1.5; }
+#sky .invitation { top:74%; }
+#sky #hint { font-weight:300; font-size:clamp(24px,2.6vw,36px); }
+.projects h2 em, .night .projects h2 em { color:#fff; }
+@media(max-width:600px){#sky #reveal{width:96vw;height:32%;top:43%}#sky .logo-payoff{font-size:10px;letter-spacing:3.5px;top:calc(100% - 12px)}#sky .invitation{top:70%}#sky #hint{font-size:25px}}
