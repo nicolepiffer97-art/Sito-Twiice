@@ -1,5 +1,11 @@
 # TWIICE · Creative universe
 
+## Visita il sito
+
+[Apri TWIICE · Tra le nuvole](https://nix-clouds-home.jazzysky.chatgpt.site)
+
+Il link apre il sito pubblicato, completo e navigabile, con tutte le pagine e le interazioni.
+
 Sito statico in `dist/`, senza dipendenze o compilazione. Servire la cartella
 `dist/` per aprire il sito completo.
 
