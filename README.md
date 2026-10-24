@@ -1,5 +1,11 @@
 # TWIICE · Creative universe
 
+## Catalogo integrato — branch di lavoro
+
+Sul branch `work/twiice-updates`, la sezione **Progetti** riunisce i lavori di Nicole e le repository di Raffaele con slider, caroselli, ricerca e preferiti, usando identità visiva e modalità giorno/notte TWIICE. [Dettagli e anteprima locale](CATALOG.md).
+
+Il sito di produzione resta associato a `main`: questa integrazione non è stata pubblicata sul branch originale.
+
 ## Visita il sito
 
 [Apri TWIICE · Tra le nuvole](https://nicolepiffer97-art.github.io/Sito-Twiice/)
