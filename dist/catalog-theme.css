@@ -98,3 +98,6 @@
  .catalog-page .portfolio-header #portfolio-light,.catalog-page .portfolio-header:not(.is-scrolled) #portfolio-light{min-width:124px;min-height:44px;padding:8px 10px;font-size:11px;gap:6px}
 }
 @media(prefers-reduced-motion:reduce){.catalog-page .portfolio-header{transition:none}}
+
+/* Keep decorative stars off the featured project images too. */
+.catalog-page .tc-slide .tc-mark{display:none}
