@@ -1,4 +1,4 @@
-/* Six small collectible stars across the entire site. */
+/* Twelve small collectible stars across the entire site. */
 .site-star-host{position:relative}
 .site-star{width:44px;height:44px;padding:11px;z-index:9;line-height:0}
 .site-star svg{display:block;width:22px;height:22px}

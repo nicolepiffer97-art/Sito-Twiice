@@ -210,3 +210,29 @@ img,svg,iframe{max-width:100%}
 #sky #hint{font-size:clamp(18px,1.8vw,24px);line-height:1.2}
 @media(max-width:600px){#sky .logo-payoff{font-size:13px;letter-spacing:3px}#sky #hint{font-size:19px}}
 body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 43%,#90caf066 0%,#90caf026 55%,transparent 85%);pointer-events:none}
+
+/* White payoff, luminous card edges and artwork filling each image area. */
+#sky #hint,.night #sky #hint{color:var(--brand-ice);text-shadow:none}
+.night .motion-world,
+.night #project-highlight .feature-project,
+.night .thumbnail-image,
+.night .catalog-card-image,
+.night .tc-poster,
+.night .tc-hub,
+.night .detail-cover{outline:1px solid var(--brand-accent);outline-offset:-1px}
+#project-highlight .feature-project .feature-art>img,
+.highlight-thumbnails .thumbnail-image>img,
+.detail-cover>img,.detail-cover.poster>img,.detail-cover.identity>img{object-fit:cover;background:transparent}
+.night .project-thumbnail[aria-pressed=true] .thumbnail-image{outline-width:2px;outline-offset:3px}
+
+/* The featured artwork spans the whole card; copy sits over a readable fade. */
+#project-highlight .feature-project{display:block;height:clamp(440px,43vw,600px)}
+#project-highlight .feature-art{position:absolute;inset:0;width:100%;height:100%}
+#project-highlight .feature-project::after{display:block;background:linear-gradient(90deg,#10205af2 0%,#10205ac9 28%,#10205a22 65%,transparent 100%)}
+#project-highlight .feature-copy{position:absolute;left:0;bottom:0;z-index:1;width:45%;padding:36px 42px}
+@media(max-width:600px){
+ #project-highlight .feature-project{display:block;height:520px}
+ #project-highlight .feature-art{position:absolute;inset:0;width:100%;height:100%}
+ #project-highlight .feature-project::after{background:linear-gradient(0deg,#10205af2 0%,#10205ab3 35%,transparent 75%)}
+ #project-highlight .feature-copy{left:0;bottom:0;width:100%;padding:26px;max-width:none}
+}
