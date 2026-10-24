@@ -32,4 +32,18 @@ function syncTheme(){const night=document.body.classList.contains('night');count
 new MutationObserver(syncTheme).observe(document.body,{attributes:true,attributeFilter:['class']});reduced.addEventListener('change',()=>{if(reduced.matches&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}});
 addEventListener('pageshow',()=>{try{const current=JSON.parse(sessionStorage.getItem(key))??[];if(Array.isArray(current)){collected.clear();current.filter(n=>Number.isInteger(n)&&n>=0&&n<total).forEach(n=>collected.add(n))}}catch{}flights=[];cancelAnimationFrame(raf);raf=0;displayed=collected.size;document.querySelectorAll('.site-star').forEach(b=>{const found=collected.has(Number(b.dataset.starId));b.disabled=found;b.classList.toggle('collected',found)});update();syncTheme()});
 window.TwiiceStars={read:()=>[...collected]};update();syncTheme();
+
+/* Keep the fixed counter above the footer, including when page height changes. */
+const footer=document.querySelector('.site-footer,.portfolio-footer,footer');
+if(footer){
+ counter.style.translate='0 calc(-1px * var(--footer-overlap, 0))';
+ let footerFrame=0;
+ function clearFooter(){footerFrame=0;counter.style.setProperty('--footer-overlap',String(Math.max(0,innerHeight-footer.getBoundingClientRect().top)))}
+ function scheduleFooter(){if(!footerFrame)footerFrame=requestAnimationFrame(clearFooter)}
+ addEventListener('scroll',scheduleFooter,{passive:true});
+ addEventListener('resize',scheduleFooter);
+ addEventListener('pageshow',scheduleFooter);
+ if(typeof ResizeObserver!=='undefined'){const footerResize=new ResizeObserver(scheduleFooter);footerResize.observe(document.body);footerResize.observe(footer)}
+ clearFooter();
+}
 })();
