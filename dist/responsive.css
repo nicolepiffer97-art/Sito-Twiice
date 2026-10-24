@@ -219,7 +219,7 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
 .night .catalog-card-image,
 .night .tc-poster,
 .night .tc-hub,
-.night .detail-cover{outline:1px solid var(--brand-accent);outline-offset:-1px}
+.night .detail-cover{outline:1px solid var(--brand-accent);outline-offset:1px}
 #project-highlight .feature-project .feature-art>img,
 .highlight-thumbnails .thumbnail-image>img,
 .detail-cover>img,.detail-cover.poster>img,.detail-cover.identity>img{object-fit:cover;background:transparent}
