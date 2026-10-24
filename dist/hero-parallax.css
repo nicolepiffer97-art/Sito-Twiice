@@ -5,9 +5,6 @@
  .parallax-ready #sky .backdrop>img{transform:translate3d(calc(var(--px-x) * -.45),calc(var(--px-scroll) * .27 + var(--px-y) * -.45),0) scale(1.13);transform-origin:center 65%;will-change:transform}
  .parallax-ready #sky #reveal{translate:var(--px-x) calc(var(--px-scroll) * .14 + var(--px-y));will-change:translate}
  .parallax-ready #sky .invitation{translate:calc(var(--px-x) * .35) calc(var(--px-scroll) * .07 + var(--px-y) * .35);opacity:var(--px-fade);will-change:translate,opacity}
- .parallax-ready .px-entry{translate:0 var(--entry-y,0px);opacity:var(--entry-opacity,1);will-change:translate,opacity}
- .parallax-ready #project-highlight .feature-art{overflow:hidden}
- .parallax-ready #project-highlight .feature-project .feature-art>img{height:112%;margin-top:-3%;translate:0 var(--art-y,0px);will-change:translate}
 }
 @media(max-width:600px) and (prefers-reduced-motion:no-preference){
  .parallax-ready #sky .backdrop>img{transform:translate3d(0,calc(var(--px-scroll) * .17),0) scale(1.08)}
@@ -15,5 +12,5 @@
  .parallax-ready #sky .invitation{translate:0 calc(var(--px-scroll) * .04)}
 }
 @media(prefers-reduced-motion:reduce){
- .parallax-ready #sky .backdrop>img,.parallax-ready #sky #reveal,.parallax-ready #sky .invitation,.parallax-ready .px-entry,.parallax-ready #project-highlight .feature-art>img{translate:none;will-change:auto}
+ .parallax-ready #sky .backdrop>img,.parallax-ready #sky #reveal,.parallax-ready #sky .invitation{translate:none;will-change:auto}
 }
