@@ -46,4 +46,42 @@ if(footer){
  if(typeof ResizeObserver!=='undefined'){const footerResize=new ResizeObserver(scheduleFooter);footerResize.observe(document.body);footerResize.observe(footer)}
  clearFooter();
 }
+
+/* Find empty background space; never place collectibles over content or controls. */
+let placementFrame=0;
+function placeOnBackground(){
+ placementFrame=0;
+ for(const placement of placements){
+  const host=document.querySelector(placement.host),button=host?.querySelector('[data-star-id="'+placement.id+'"]');
+  if(!button)continue;
+  const area=host.getBoundingClientRect(),half=22,pad=8;
+  const obstacles=[...host.querySelectorAll('img,video,iframe,button,a,input,textarea,select,summary,h1,h2,h3,p,label,legend,.tc-poster,.tc-slide,.motion-world,.original-badge')]
+   .filter(el=>!el.closest('.site-star,.backdrop')&&el.getClientRects().length)
+   .map(el=>el.getBoundingClientRect()).filter(r=>r.width&&r.height);
+  const preferredX=area.width*parseFloat(placement.x)/100,preferredY=area.height*parseFloat(placement.y)/100;
+  const xs=[preferredX,30,area.width-30,area.width*.04,area.width*.96];
+  let found=null;
+  for(let distance=0;distance<=area.height&&!found;distance+=56){
+   for(const y of distance?[preferredY-distance,preferredY+distance]:[preferredY]){
+    if(y<half+pad||y>area.height-half-pad)continue;
+    for(const x of xs){
+     if(x<half||x>area.width-half)continue;
+     const box={left:area.left+x-half-pad,right:area.left+x+half+pad,top:area.top+y-half-pad,bottom:area.top+y+half+pad};
+     if(obstacles.every(r=>box.right<=r.left||box.left>=r.right||box.bottom<=r.top||box.top>=r.bottom)){found={x,y};break}
+    }
+    if(found)break;
+   }
+  }
+  button.style.visibility=found?'':'hidden';
+  if(found){button.style.left=found.x+'px';button.style.top=found.y+'px'}
+ }
+}
+function schedulePlacement(){if(!placementFrame)placementFrame=requestAnimationFrame(placeOnBackground)}
+addEventListener('resize',schedulePlacement);
+addEventListener('pageshow',schedulePlacement);
+document.addEventListener('load',schedulePlacement,true);
+new MutationObserver(schedulePlacement).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
+if(typeof ResizeObserver!=='undefined'){const layoutObserver=new ResizeObserver(schedulePlacement);for(const p of placements){const host=document.querySelector(p.host);if(host)layoutObserver.observe(host)}}
+document.fonts?.ready.then(schedulePlacement);
+schedulePlacement();
 })();
