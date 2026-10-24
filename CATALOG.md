@@ -27,7 +27,7 @@ python -m http.server 4180 --directory dist
 
 Apri `http://localhost:4180/progetti.html`. Il percorso home → Progetti usa già questa pagina.
 
-Il workflow GitHub Pages originale pubblica esclusivamente `main`: è rimasto invariato. Un push su `work/twiice-updates` **non pubblica sulla pagina di produzione**. Per portare online l’integrazione sul sito originale servirà una successiva revisione e integrazione in `main`.
+Il workflow GitHub Pages originale pubblica esclusivamente `main` ed è rimasto invariato. Dopo l’approvazione, l’integrazione sviluppata su `work/twiice-updates` è stata portata in `main`. Il catalogo pubblico è disponibile su [Progetti TWIICE](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html). Un successivo push sul solo branch di lavoro non modifica il sito pubblico.
 
 ## Verifiche
 
