@@ -2,7 +2,7 @@
 
 ## Catalogo integrato
 
-La sezione **Progetti** riunisce i lavori di Nicole e le repository di Raffaele in una griglia con quattro categorie, ricerca nella pagina e preferiti, usando identità visiva e modalità giorno/notte TWIICE. [Dettagli tecnici](CATALOG.md).
+La sezione **Progetti** riunisce i lavori di Nicole e le repository di Raffaele con una fascia superiore a scorrimento e una griglia con quattro categorie e ricerca nella pagina, usando identità visiva e modalità giorno/notte TWIICE. [Dettagli tecnici](CATALOG.md).
 
 [Apri direttamente il catalogo Progetti](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html). L’integrazione, sviluppata su `work/twiice-updates`, è pubblicata da `main` dopo l’approvazione.
 
