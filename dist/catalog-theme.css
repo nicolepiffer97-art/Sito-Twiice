@@ -12,28 +12,19 @@
 .catalog-page .tc-detail-tags,.catalog-page .tc-detail-facts dt{color:var(--muted)}
 .catalog-page .tc-detail-facts{border-color:var(--line)}
 /* Same header proportions, navigation and fading background as the home. */
-.catalog-page .portfolio-header{height:auto;min-height:122px;inset:0 0 auto;padding:30px 4% 36px 5.5%;gap:40px;align-items:flex-start;background:transparent;border:0;color:var(--text);box-shadow:none;transition:transform .28s ease}
+.catalog-page .portfolio-header{height:auto;min-height:96px;inset:0 0 auto;padding:18px 5.1vw;gap:24px;align-items:center;background:transparent;border:0;color:var(--text);box-shadow:none;transition:transform .28s ease}
 .catalog-page .portfolio-header.is-scrolled{box-shadow:none}
-.catalog-page .portfolio-header::before{display:block;content:'';position:absolute;inset:0 0 -40px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,#fff 0%,#fff 44%,#fffffff0 61%,#ffffff80 80%,#ffffff00 100%);opacity:1}
+.catalog-page .portfolio-header::before{display:block;content:'';position:absolute;inset:0 0 -16px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,#fff 0%,#fff 44%,#fffffff0 61%,#ffffff80 80%,#ffffff00 100%);opacity:1}
 .catalog-page.night .portfolio-header::before{background:linear-gradient(to bottom,#10205a 0%,#10205a 44%,#10205af0 61%,#10205a80 80%,#10205a00 100%)}
 .catalog-page .portfolio-header>a{width:112px;flex:none}
-.catalog-page .portfolio-header nav{margin-left:auto;margin-right:0;flex:none;height:40px;gap:26px;justify-content:flex-end}
-.catalog-page .portfolio-header nav a,.catalog-page .portfolio-header nav a:first-child{display:flex;height:40px;min-height:40px;gap:7px;font:400 12px var(--font-body);letter-spacing:0;text-transform:none;color:var(--text)}
-.catalog-page .portfolio-header nav a span{display:inline}
-.catalog-page .portfolio-header nav a span:after{display:none}
-.catalog-page .portfolio-header nav a.active{color:var(--text);text-decoration:none}
-.catalog-page .portfolio-header nav a:hover:hover{text-decoration:underline;text-underline-offset:5px}
-.catalog-page .portfolio-header nav svg{width:15px;height:15px}
 .catalog-page .portfolio-header #portfolio-light,.catalog-page .portfolio-header:not(.is-scrolled) #portfolio-light{width:auto;height:auto;min-width:150px;min-height:40px;padding:8px 14px;gap:8px;font-size:12px;line-height:1.2;justify-content:center;border:1px solid currentColor;border-radius:50px;color:var(--text);background:transparent;flex:none}
 .catalog-page .portfolio-header #portfolio-light .lamp{width:18px;height:18px}
 .catalog-page .portfolio-header #portfolio-light>span:last-child{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:nowrap}
 @media(max-width:600px){
- .catalog-page .portfolio-header{min-height:84px;padding:16px 4% 24px;gap:10px}
- .catalog-page .portfolio-header::before{bottom:-18px}
+ .catalog-page .portfolio-header{min-height:72px;padding:14px 5.5vw;gap:16px;align-items:center}
+ .catalog-page .portfolio-header::before{bottom:-12px}
  .catalog-page .portfolio-header>a{width:70px;height:44px;display:flex;align-items:center}
  .catalog-page .portfolio-header>a>img{width:70px;max-height:44px;object-fit:contain}
- .catalog-page .portfolio-header nav{height:44px;gap:12px}
- .catalog-page .portfolio-header nav a,.catalog-page .portfolio-header nav a:first-child{height:44px;min-height:44px;font-size:12px}
  .catalog-page .portfolio-header #portfolio-light,.catalog-page .portfolio-header:not(.is-scrolled) #portfolio-light{min-width:124px;min-height:44px;padding:8px 10px;font-size:11px;gap:6px}
 }
 @media(prefers-reduced-motion:reduce){.catalog-page .portfolio-header{transition:none}}
