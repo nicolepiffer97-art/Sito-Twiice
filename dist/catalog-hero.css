@@ -96,3 +96,9 @@
 .catalog-page .tc-pause{color:var(--muted)}
 @media(max-width:600px){.catalog-page .tc-slide:after{background:linear-gradient(0deg,var(--tc-cover) 3%,var(--tc-cover-fade) 45%,transparent 100%)}}
 .catalog-page .tc-slide .tc-mark{display:none}
+
+/* Original secondary-action rules, including their original modifiers. */
+.catalog-page .tc-hero .tc-btn.tc-secondary{color:white;border:1px solid #aaa;background:#1118279c}
+.catalog-page .tc-hero .tc-btn.tc-secondary:hover{background:#fff;color:#111}
+.catalog-page .tc-hero .tc-btn.tc-secondary{background:var(--paper);color:var(--text);border-color:var(--line)}
+.catalog-page .tc-hero .tc-btn.tc-secondary:hover{background:var(--tc-panel);color:var(--text)}
