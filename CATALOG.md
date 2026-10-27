@@ -2,7 +2,7 @@
 
 [Apri la pagina Progetti](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html).
 
-La pagina `dist/progetti.html` apre con una fascia grande a scorrimento che presenta tutti i 13 progetti, con frecce, indicatori, pausa, scorrimento automatico e comandi da tastiera. Sotto rimane la griglia responsive senza scorrimento laterale. I cinque pulsanti riprendono lo stile arrotondato del sito: **Tutti i progetti** è selezionato all’apertura, seguito dalle quattro categorie.
+La pagina `dist/progetti.html` apre con una fascia di immagini a scorrimento. Il titolo «Progetti» e il sottotitolo rimangono fissi in un livello separato dalle immagini: non ci sono testi, descrizioni o pulsanti dei singoli progetti nella fascia. Le cinque immagini in evidenza mantengono frecce laterali, scorrimento automatico e comandi da tastiera; pallini e pulsante pausa sono rimossi. Il movimento si ferma al passaggio del mouse, al focus, quando la pagina non è visibile e con la preferenza di movimento ridotto. Sotto rimane la griglia di tutti i 13 progetti, senza scorrimento laterale. Categorie e ricerca seguono direttamente la fascia, senza un secondo titolo. I cinque pulsanti riprendono lo stile arrotondato del sito: **Tutti i progetti** è selezionato all’apertura, seguito dalle quattro categorie.
 
 ## Categorie
 
@@ -15,9 +15,9 @@ Le assegnazioni sono in `projectCategories` in `dist/catalog.js`. Ogni progetto 
 
 ## Contenuti e interazioni
 
-I quattro lavori di Nicole/TWIICE vengono letti da `dist/projects-data.js` e aprono le schede originali `progetto.html?id=…`. Le nove repository di Raffaele sono in `dist/repositories-data.js` e aprono GitHub in una nuova scheda. Il titolo è sotto l’immagine, insieme al pulsante per leggere le informazioni. In **Tutti i progetti**, il sottotitolo indica soltanto la categoria; nei filtri di categoria il sottotitolo è assente. La funzione di salvataggio nella lista e i relativi pulsanti sono stati rimossi, anche dalle schede informative. Le immagini sono prive di etichette sovrapposte. Le schede, immagini, video e contenuti originali dei progetti restano invariati.
+I quattro lavori di Nicole/TWIICE vengono letti da `dist/projects-data.js` e aprono le schede originali `progetto.html?id=…`. Le nove repository di Raffaele sono in `dist/repositories-data.js` e aprono GitHub in una nuova scheda. Il titolo è sotto l’immagine e apre direttamente il progetto. I pulsanti informativi e le relative finestre sono rimossi dalla fascia e dalla griglia. In **Tutti i progetti**, il sottotitolo indica soltanto la categoria; nei filtri di categoria il sottotitolo è assente. La funzione di salvataggio nella lista e i relativi pulsanti sono stati rimossi, da tutta la pagina. Le immagini sono prive di etichette sovrapposte. Le schede, immagini, video e contenuti originali dei progetti restano invariati.
 
-Il tema condivide la chiave `twiice-night` in `sessionStorage` con il resto del sito. Il layout è in `catalog.css`, palette e header in `catalog-theme.css`. Home, schede originali, stelle e movimento dell’header continuano a usare i propri file condivisi.
+Il tema condivide la chiave `twiice-night` in `sessionStorage` con il resto del sito. La griglia è in `catalog.css`, la fascia e il titolo fisso in `catalog-hero.css`, palette e header in `catalog-theme.css`. Home, schede originali, stelle e movimento dell’header continuano a usare i propri file condivisi.
 
 ## Sviluppo e pubblicazione
 
@@ -31,4 +31,4 @@ Le immagini delle repository sono in `dist/assets/catalog/`, provengono dal cata
 
 ## Verifiche
 
-Controllati in browser: 13 progetti iniziali, cinque pulsanti, conteggi per categoria (1/5/3/4), combinazione con la ricerca, nessun risultato e ripristino, ricerca senza cambio URL, schede informative e ritorno del focus, tema giorno/notte, titoli sotto le immagini, categoria visibile solo nella vista completa, assenza dei comandi della lista e di Cerca nell’header. Verificati inoltre i 13 elementi della fascia superiore, frecce, indicatori, pausa e assenza di contenuti tagliati nei banner su mobile. Controllati anche sintassi JavaScript, riferimenti locali e impaginazione responsive senza overflow orizzontale.
+Controllati in browser: un solo titolo «Progetti», posizione e testo invariati al cambio immagine, avanzamento automatico, frecce, assenza di pallini/pausa e di testi o azioni dei singoli progetti nella fascia. Verificati inoltre i 13 progetti iniziali, filtri e ricerca combinata, sottotitoli di categoria solo nella vista completa, tema giorno/notte e impaginazione mobile senza overflow orizzontale. Sintassi JavaScript e file condivisi della home e delle schede originali controllati senza modifiche.
