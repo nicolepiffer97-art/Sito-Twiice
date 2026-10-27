@@ -39,9 +39,9 @@ html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
 .catalog-page .tc-art-poster>img{object-position:center 35%}
 .catalog-page .tc-card-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-top:16px}
 .catalog-page .tc-card-caption{min-width:0}
-.catalog-page .tc-card-name{font:500 19px/1.15 var(--font-display);letter-spacing:-.02em;color:var(--text);margin:0 0 7px;overflow-wrap:anywhere}
+.catalog-page .tc-card-name{font:700 22px/1.2 var(--font-display);letter-spacing:-.02em;color:var(--text);margin:0 0 7px;overflow-wrap:anywhere}
 .catalog-page .tc-card-name a:hover{text-decoration:underline;text-underline-offset:3px}
-.catalog-page .tc-card-caption p{font-size:10px;line-height:1.6;margin:0;color:var(--muted)}
+.catalog-page .tc-card-caption p{font-size:12px;line-height:1.6;margin:0;color:var(--muted)}
 .catalog-page .tc-card-buttons{display:flex;gap:5px;flex:none}
 .catalog-page .tc-circle{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:var(--tc-button-radius);padding:5px;transition:background .2s,color .2s}
 .catalog-page .tc-circle:hover{background:var(--text);color:var(--paper);border-color:var(--text)}
@@ -81,7 +81,7 @@ html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
  .catalog-page .tc-chip{font-size:11px;padding:10px 13px}
  .catalog-page .tc-grid{gap:28px 16px}
  .catalog-page .tc-card-meta{display:block;padding-top:12px}
- .catalog-page .tc-card-name{font-size:18px}
+ .catalog-page .tc-card-name{font-size:20px}
  .catalog-page .tc-card-buttons{margin-top:10px}
  .catalog-page .tc-circle{width:36px;height:36px}
  .catalog-page .tc-detail-visual{height:220px}
