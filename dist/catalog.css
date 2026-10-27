@@ -1,10 +1,10 @@
 /* Featured project hero and single-page project grid. Shared site styles remain in brand.css/projects.css. */
-.catalog-page{--tc-gutter:5.5vw;--ease:cubic-bezier(.2,.65,.25,1);margin:0;min-height:100vh;background:var(--paper);color:var(--text);font:15px/1.5 var(--font-body)}
+.catalog-page{--tc-button-radius:8px;--tc-gutter:5.5vw;--ease:cubic-bezier(.2,.65,.25,1);margin:0;min-height:100vh;background:var(--paper);color:var(--text);font:15px/1.5 var(--font-body)}
 .catalog-page *{box-sizing:border-box}
 html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
 .catalog-page button,.catalog-page input{font:inherit;color:inherit}
 .catalog-page button,.catalog-page a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.catalog-page button{cursor:pointer}
+.catalog-page button{cursor:pointer;border-radius:var(--tc-button-radius)}
 .catalog-page a{color:inherit;text-decoration:none}
 .catalog-page svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
 .catalog-page i,.catalog-page .tc-icon{display:inline-flex;font-style:normal}
@@ -15,11 +15,11 @@ html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
 .catalog-page #portfolio{padding-top:110px;min-height:75vh}
 .catalog-page .catalog-content{padding:0;position:relative}
 .catalog-page #catalog-view{outline:none}
-.catalog-page .tc-page-head{padding:20px var(--tc-gutter) 0}
+.catalog-page .tc-page-head{padding:48px var(--tc-gutter) 0}
 .catalog-page .tc-page-head h1{font-family:var(--font-display);font-weight:500;font-size:clamp(38px,5vw,64px);letter-spacing:-.035em;margin:0 0 12px}
 .catalog-page .tc-page-head>p{color:var(--muted);margin:0;font-size:14px}
 .catalog-page .tc-filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}
-.catalog-page .tc-chip{padding:10px 15px;min-height:44px;border-radius:30px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:12px;line-height:1.5;transition:background .2s,color .2s,border-color .2s}
+.catalog-page .tc-chip{padding:10px 15px;min-height:44px;border-radius:var(--tc-button-radius);border:1px solid var(--line);background:transparent;color:var(--text);font-size:12px;line-height:1.5;transition:background .2s,color .2s,border-color .2s}
 .catalog-page .tc-chip:hover{border-color:var(--text);background:var(--tc-panel)}
 .catalog-page .tc-chip.active{background:var(--text);color:var(--paper);border-color:var(--text)}
 .catalog-page .tc-search-field{display:flex;align-items:center;gap:12px;width:min(100%,480px);border-bottom:1px solid var(--line);padding:10px 0;background:transparent;scroll-margin-block:140px 30px}
@@ -43,10 +43,10 @@ html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
 .catalog-page .tc-card-name a:hover{text-decoration:underline;text-underline-offset:3px}
 .catalog-page .tc-card-caption p{font-size:10px;line-height:1.6;margin:0;color:var(--muted)}
 .catalog-page .tc-card-buttons{display:flex;gap:5px;flex:none}
-.catalog-page .tc-circle{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:50%;padding:5px;transition:background .2s,color .2s}
+.catalog-page .tc-circle{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:var(--tc-button-radius);padding:5px;transition:background .2s,color .2s}
 .catalog-page .tc-circle:hover{background:var(--text);color:var(--paper);border-color:var(--text)}
 .catalog-page .tc-circle svg{width:17px;height:17px}
-.catalog-page .tc-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 20px;border:1px solid var(--text);border-radius:30px;font:400 12px var(--font-body);background:var(--text);color:var(--paper)}
+.catalog-page .tc-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 20px;border:1px solid var(--text);border-radius:var(--tc-button-radius);font:400 12px var(--font-body);background:var(--text);color:var(--paper)}
 .catalog-page .tc-btn:hover{background:var(--tc-panel);color:var(--text)}
 .catalog-page .tc-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .catalog-page .tc-kicker{font-size:10px;letter-spacing:2px;color:var(--muted)}
@@ -75,7 +75,7 @@ html:has(body.catalog-page){scroll-behavior:smooth;scroll-padding-top:145px}
 @media(max-width:600px){
  .catalog-page{--tc-gutter:6vw}
  .catalog-page #portfolio{padding-top:84px}
- .catalog-page .tc-page-head{padding-top:18px}
+ .catalog-page .tc-page-head{padding-top:32px}
  .catalog-page .tc-page-head>p{font-size:13px}
  .catalog-page .tc-filters{gap:8px}
  .catalog-page .tc-chip{font-size:11px;padding:10px 13px}
