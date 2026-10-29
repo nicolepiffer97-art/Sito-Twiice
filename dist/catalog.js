@@ -11,13 +11,13 @@ const categories=[
  {id:'tools',title:'AI tools'}
 ];
 const projectCategories={
- 'astrocane':'images','engineering-2k':'brand','coreve':'images','twiice':'web',
+ 'the-coffin':'images','astrocane':'images','engineering-2k':'brand','coreve':'images','twiice':'web',
  'repo-ComfyUI-RPNodes':'tools','repo-gallery-dl-windows-gui':'images',
  'repo-yt-dlp-windows-gui':'images','repo-realtime-captions-system-audio-gui':'tools',
  'repo-batch-image-resizer':'images','repo-before-after-slider':'web',
  'repo-camera-motion-studio':'web','repo-chatbot_ZURU':'tools','repo-chatbot_semplice':'tools'
 };
-const studio=(window.TWIICE_PROJECTS||[]).map(p=>({...p,name:p.id,author:p.id==='twiice'?'TWIICE':'Nicole Piffer',type:'project',url:`progetto.html?id=${encodeURIComponent(p.id)}`,external:false}));
+const studio=(window.TWIICE_PROJECTS||[]).map(p=>({...p,name:p.id,author:p.author||(p.id==='twiice'?'TWIICE':'Nicole Piffer'),type:'project',url:`progetto.html?id=${encodeURIComponent(p.id)}`,external:false}));
 const projects=[...studio,...(window.TWIICE_REPOSITORIES||[])].map(p=>({...p,categories:[projectCategories[p.id]||'images']}));
 const main=document.querySelector('#catalog-view');
 const header=document.querySelector('.portfolio-header');
