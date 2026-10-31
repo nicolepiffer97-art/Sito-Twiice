@@ -37,8 +37,10 @@ Controllati in browser: un solo titolo «Progetti», posizione e testo invariati
 
 [Apri la scheda The Coffin](https://nicolepiffer97-art.github.io/Sito-Twiice/progetto.html?id=the-coffin).
 
-La nuova scheda segue un percorso lineare: titolo, video principale in grande, i sei paragrafi forniti in inglese, video making of più raccolto e galleria di 11 immagini. I lettori YouTube includono un collegamento diretto al video. Il nuovo progetto è in **Immagini e movimento** e usa la copertina fornita nel catalogo.
+La nuova scheda segue un percorso lineare: video principale in grande, titolo e i sei paragrafi forniti in inglese allineati a sinistra, video making of più raccolto e galleria di 11 immagini. I lettori YouTube includono un collegamento diretto al video. Il nuovo progetto è in **Immagini e movimento** e usa la copertina fornita nel catalogo.
 
 `dist/coffin-data.js` aggiunge il progetto solo al catalogo e alle schede; la selezione nella homepage e i dati originali non cambiano. Il rendering dedicato è in `dist/film-project.js`, lo stile è circoscritto in `dist/film-project.css`. Gli altri quattro progetti mantengono il proprio layout. Le immagini fornite sono salvate localmente in WebP, con miniature separate per la galleria; le didascalie e i link sorgente Drive conservano i nomi originali in `coffin-data.js`.
 
 La galleria apre un dialogo modale con frecce precedente/successiva, tasti ←/→, Esc, chiusura sullo sfondo e swipe su touch. Lo scorrimento torna alla prima immagine dopo l’ultima. Il dialogo trattiene il focus e lo restituisce alla miniatura alla chiusura. Verificati catalogo, ricerca e categoria, ordine dei contenuti, quattro colonne desktop, due colonne mobile e assenza di overflow. YouTube può rifiutare il video principale dall’origine locale: verificare il lettore sul dominio pubblico dopo la pubblicazione.
+
+Il video principale apre direttamente la scheda, senza collegamento di ritorno sopra: mantiene il formato 16:9 e si adatta anche all’altezza visibile, per essere interamente visibile sotto l’header senza scroll iniziale.

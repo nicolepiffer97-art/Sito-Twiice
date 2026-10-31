@@ -7,10 +7,8 @@ window.renderFilmProject = (root, project) => {
   document.body.classList.add('film-project');
   document.querySelector('meta[name="description"]').content = 'The Coffin: il cortometraggio, il making of e la galleria del progetto realizzato con ComfyUI.';
   root.innerHTML = `<article class="film-layout">
-    <a class="film-back" href="progetti.html">← Tutti i progetti</a>
-    <h1 class="film-title">${esc(project.title)}</h1>
-    <section aria-label="Video principale">${player(project.youtube, 'The Coffin — cortometraggio')}<a class="film-video-link" href="${project.video}" target="_blank" rel="noopener noreferrer">Guarda su YouTube ↗</a></section>
-    <section class="film-story" lang="en" aria-label="About The Coffin">${project.paragraphs.map(text => `<p>${esc(text)}</p>`).join('')}</section>
+    <section class="film-main" aria-label="Video principale">${player(project.youtube, 'The Coffin — cortometraggio')}<a class="film-video-link" href="${project.video}" target="_blank" rel="noopener noreferrer">Guarda su YouTube ↗</a></section>
+    <section class="film-story" lang="en" aria-labelledby="film-title"><h1 class="film-title" id="film-title">${esc(project.title)}</h1>${project.paragraphs.map(text => `<p>${esc(text)}</p>`).join('')}</section>
     <section class="film-making" aria-labelledby="making-title"><h2 id="making-title">Making of</h2><div class="film-making-player">${player(project.makingYoutube, 'The Coffin — making of', true)}<a class="film-video-link" href="${project.makingVideo}" target="_blank" rel="noopener noreferrer">Guarda il making of su YouTube ↗</a></div></section>
     <section class="film-gallery" aria-labelledby="gallery-title"><h2 id="gallery-title">Galleria</h2><div class="film-gallery-grid">${project.gallery.map((item, i) => `<figure><button type="button" class="film-gallery-open" data-image="${i}" aria-label="Ingrandisci ${esc(item.caption)}" aria-haspopup="dialog"><img src="${esc(item.thumbnail)}" alt="${esc(item.caption)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async"></button><figcaption>${esc(item.caption)}</figcaption></figure>`).join('')}</div></section>
   </article>

@@ -6,15 +6,15 @@
 .film-project .portfolio-header>a { width:112px; flex:none; }
 .film-project .portfolio-header nav { align-self:center; transform:translateY(9.52px); }
 .film-project .portfolio-header #portfolio-light { border-radius:8px; transform:translateY(9.52px); flex:none; }
-.film-layout { width:89.8%; max-width:1440px; margin:0 auto; padding:140px 0 96px; }
-.film-back { display:inline-block; font-size:12px; color:var(--muted); padding:8px 0; margin-bottom:26px; }
-.film-back:hover { color:var(--text); text-decoration:underline; text-underline-offset:5px; }
+.film-layout { --film-top-space:120px; width:89.8%; max-width:1440px; margin:0 auto; padding:var(--film-top-space) 0 96px; }
+/* Keep the complete 16:9 film inside the opening viewport, below the header. */
+.film-main { width:min(100%,calc((100svh - var(--film-top-space) - 24px) * 16 / 9)); margin:0 auto; }
 .portfolio-page .film-title { font-size:clamp(48px,6.5vw,88px); font-weight:700; letter-spacing:-.035em; line-height:1.1; margin:0 0 36px; }
 .film-video { position:relative; aspect-ratio:16/9; background:#080e21; overflow:hidden; border-radius:8px; }
 .film-video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 .film-video-link { display:block; width:fit-content; margin:14px 0 0 auto; font-size:12px; color:var(--muted); text-underline-offset:4px; }
 .film-video-link:hover { text-decoration:underline; color:var(--text); }
-.film-story { max-width:800px; margin:64px auto 80px; }
+.film-story { max-width:800px; margin:64px 0 80px; text-align:left; }
 .film-story p { font-size:clamp(17px,1.35vw,20px); line-height:1.8; margin:0 0 24px; }
 .film-story p:last-child { margin-bottom:0; }
 .film-layout h2 { font-size:clamp(32px,3vw,46px); font-weight:600; line-height:1.15; letter-spacing:-.025em; margin:0 0 30px; }
@@ -46,10 +46,9 @@
   .film-project .portfolio-header>a { width:70px; }
   .film-project .portfolio-header nav { display:none; }
   .film-project .portfolio-header #portfolio-light { transform:translateY(5.95px); min-width:124px; }
-  .film-layout { width:89%; padding:106px 0 56px; }
-  .film-back { margin-bottom:20px; }
+  .film-layout { --film-top-space:96px; width:89%; padding-bottom:56px; }
   .portfolio-page .film-title { font-size:48px; margin-bottom:26px; }
-  .film-story { margin:38px auto 48px; }
+  .film-story { margin:38px 0 48px; }
   .film-story p { font-size:17px; line-height:1.75; margin-bottom:22px; }
   .film-layout h2 { margin-bottom:24px; }
   .film-making { margin-bottom:48px; }
