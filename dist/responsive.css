@@ -262,3 +262,13 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
  .contact-layout>#brief-form{padding:22px 18px;border-radius:14px}
  .contact-layout>#brief-form fieldset:first-of-type{margin-top:0}
 }
+
+/* Transparent over the hero; a white navigation surface after it. */
+#sky>header.home-header{background:transparent;border-bottom-color:transparent;color:white;transition:background .25s ease,border-color .25s ease,transform .28s ease}
+#sky>header.home-header .edition[hidden]{display:none}
+#sky>header.home-header .home-header-nav,#sky>header.home-header #light{color:white}
+#sky>header.home-header #light{border-color:white}
+#sky>header.home-header.header-over-content{background:var(--brand-ice);border-bottom-color:#18234a30;color:var(--brand-ink)}
+#sky>header.home-header.header-over-content .home-header-nav,#sky>header.home-header.header-over-content #light{color:var(--brand-ink)}
+#sky>header.home-header.header-over-content #light{border-color:#18234a60}
+@media(prefers-reduced-motion:reduce){#sky>header.home-header{transition:none}}
