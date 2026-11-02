@@ -2,7 +2,7 @@
 'use strict';
 const sky=document.querySelector('#sky'),light=document.querySelector('#light');
 const storage={get(key,fallback){try{return JSON.parse(sessionStorage.getItem(key))??fallback}catch{return fallback}},set(key,value){try{sessionStorage.setItem(key,JSON.stringify(value))}catch{}}};
-function setNight(night){document.body.classList.toggle('night',night);document.querySelectorAll('img[data-brand-logo]').forEach(img=>img.src=night?'twiice-logo-hq-dark.svg':'twiice-logo-hq-day.svg');light.setAttribute('aria-pressed',String(night));document.querySelector('#light-label').textContent=night?'Accendi la luce':'Spegni la luce';storage.set('twiice-night',night);}
+function setNight(night){document.body.classList.toggle('night',night);document.querySelectorAll('img[data-brand-logo]').forEach(img=>img.src=night&&!img.closest('.home-header')?'twiice-logo-hq-dark.svg':'twiice-logo-hq-day.svg');light.setAttribute('aria-pressed',String(night));document.querySelector('#light-label').textContent=night?'Accendi la luce':'Spegni la luce';storage.set('twiice-night',night);}
 setNight(storage.get('twiice-night',false)===true);light.addEventListener('click',()=>setNight(!document.body.classList.contains('night')));
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();const tools=[{name:'read_twiice_sky',description:'Read TWIICE theme and collected stars across the site.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute(){return {night:document.body.classList.contains('night'),logoVisible:true,collected:window.TwiiceStars?.read()??[]}}},{name:'set_twiice_light',description:'Set TWIICE to day or night.',inputSchema:{type:'object',properties:{night:{type:'boolean'}},required:['night'],additionalProperties:false},annotations:{readOnlyHint:false},execute(input){if(typeof input.night!=='boolean')throw Error('night must be boolean');setNight(input.night);return {night:input.night}}}];for(const tool of tools){try{Promise.resolve(document.modelContext.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{})}catch{}}addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}
 // Contact details are submitted only when the visitor sends the form.
@@ -28,8 +28,9 @@ addEventListener('pageshow',()=>{const button=contactForm.querySelector('[type="
 const siteHeader=document.querySelector('#sky > header');
 function syncHeaderSurface(){
   const skyBottom=sky.getBoundingClientRect().bottom;
-  const controlsBottom=light.getBoundingClientRect().bottom;
-  siteHeader.classList.toggle('header-over-content',skyBottom<=controlsBottom+20);
+  const beyondHero=skyBottom<=0;
+  siteHeader.classList.toggle('header-over-content',beyondHero);
+  siteHeader.querySelector('.edition').hidden=!beyondHero;
 }
 let headerFrame=0;
 addEventListener('scroll',()=>{
