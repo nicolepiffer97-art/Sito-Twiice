@@ -232,10 +232,10 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
 
 /* Independent scroll layers preserve the hero's existing layout. */
 #sky .backdrop{transform:translate3d(0,var(--sky-depth,0px),0);will-change:transform}
-#sky #reveal{translate:0 var(--logo-depth,0px);will-change:translate}
+#sky #reveal,#sky .invitation{translate:0 var(--logo-depth,0px);will-change:translate}
 @media(prefers-reduced-motion:reduce){
  #sky .backdrop{transform:none;will-change:auto}
- #sky #reveal{translate:none;will-change:auto}
+ #sky #reveal,#sky .invitation{translate:none;will-change:auto}
 }
 
 /* Intro copy and service areas share a readable column. */
