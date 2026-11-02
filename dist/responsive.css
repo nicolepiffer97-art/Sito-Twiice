@@ -229,3 +229,11 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
  #sky>header.home-header #light{min-width:33px;width:33px;min-height:33px;height:33px;padding:0}
  #sky>header.home-header #light>span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 }
+
+/* Independent scroll layers preserve the hero's existing layout. */
+#sky .backdrop{transform:translate3d(0,var(--sky-depth,0px),0);will-change:transform}
+#sky #reveal{translate:0 var(--logo-depth,0px);will-change:translate}
+@media(prefers-reduced-motion:reduce){
+ #sky .backdrop{transform:none;will-change:auto}
+ #sky #reveal{translate:none;will-change:auto}
+}
