@@ -40,3 +40,19 @@ addEventListener('resize',syncHeaderSurface);
 addEventListener('pageshow',syncHeaderSurface);
 syncHeaderSurface();
 
+
+// Scroll depth: the sky and wordmark travel more slowly than the page.
+const parallaxMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let parallaxFrame=0;
+function syncParallax(){
+ parallaxFrame=0;
+ const distance=parallaxMotion.matches?0:Math.min(sky.offsetHeight,Math.max(0,-sky.getBoundingClientRect().top));
+ sky.style.setProperty('--sky-depth',distance*.38+'px');
+ sky.style.setProperty('--logo-depth',distance*.16+'px');
+}
+function queueParallax(){if(!parallaxFrame)parallaxFrame=requestAnimationFrame(syncParallax)}
+addEventListener('scroll',queueParallax,{passive:true});
+addEventListener('resize',queueParallax);
+addEventListener('pageshow',queueParallax);
+parallaxMotion.addEventListener('change',queueParallax);
+syncParallax();
