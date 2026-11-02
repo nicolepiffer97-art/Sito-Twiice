@@ -232,8 +232,43 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
 
 /* Independent scroll layers preserve the hero's existing layout. */
 #sky .backdrop{transform:translate3d(0,var(--sky-depth,0px),0);will-change:transform}
-#sky #reveal{translate:0 var(--logo-depth,0px);will-change:translate}
+#sky #reveal,#sky .invitation{translate:0 var(--logo-depth,0px);will-change:translate}
 @media(prefers-reduced-motion:reduce){
  #sky .backdrop{transform:none;will-change:auto}
- #sky #reveal{translate:none;will-change:auto}
+ #sky #reveal,#sky .invitation{translate:none;will-change:auto}
 }
+
+/* Intro copy and service areas share a readable column. */
+.intro-description{min-width:0}
+.intro-bottom .intro-description p{max-width:none;margin:0}
+.intro-bottom .intro-description .intro-areas{margin-top:22px;font-size:13px;line-height:1.8}
+
+/* Keep the five project choices on one desktop row and scroll through three visible choices on mobile. */
+.highlight-thumbnails{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:600px){
+ .highlight-thumbnails{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc((100% - 20px)/3);overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:4px 0 10px;scrollbar-width:thin}
+ .highlight-thumbnails .project-thumbnail{scroll-snap-align:start}
+}
+
+/* Keep the caption below the rotated cards in its own layout row. */
+.people-layout .original-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:0 22px;margin-bottom:0;padding-bottom:0}
+.people-layout .original-badges .original-badge{width:100%}
+.people-layout .original-badges .badge-concept-note{position:static;grid-column:1/-1;width:auto;margin:0;padding-top:70px;line-height:1.6}
+/* The form has its own surface, separate from the introduction. */
+.contact-layout>#brief-form{min-width:0;align-self:start;padding:32px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--paper) 96%,var(--text) 4%);box-shadow:0 12px 36px #10205a0a}
+@media(max-width:600px){
+ .people-layout .original-badges{gap:0 14px}
+ .people-layout .original-badges .badge-concept-note{padding-top:60px}
+ .contact-layout>#brief-form{padding:22px 18px;border-radius:14px}
+ .contact-layout>#brief-form fieldset:first-of-type{margin-top:0}
+}
+
+/* Transparent over the hero; a white navigation surface after it. */
+#sky>header.home-header{background:transparent;border-bottom-color:transparent;color:white;transition:background .25s ease,border-color .25s ease,transform .28s ease}
+#sky>header.home-header .edition[hidden]{display:none}
+#sky>header.home-header .home-header-nav,#sky>header.home-header #light{color:white}
+#sky>header.home-header #light{border-color:white}
+#sky>header.home-header.header-over-content{background:var(--brand-ice);border-bottom-color:#18234a30;color:var(--brand-ink)}
+#sky>header.home-header.header-over-content .home-header-nav,#sky>header.home-header.header-over-content #light{color:var(--brand-ink)}
+#sky>header.home-header.header-over-content #light{border-color:#18234a60}
+@media(prefers-reduced-motion:reduce){#sky>header.home-header{transition:none}}
