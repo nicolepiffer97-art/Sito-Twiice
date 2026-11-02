@@ -242,3 +242,7 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
 .intro-description{min-width:0}
 .intro-bottom .intro-description p{max-width:none;margin:0}
 .intro-bottom .intro-description .intro-areas{margin-top:22px;font-size:13px;line-height:1.8}
+
+/* Keep the five project choices on one desktop row and wrap 3 + 2 on mobile. */
+.highlight-thumbnails{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:600px){.highlight-thumbnails{grid-template-columns:repeat(3,minmax(0,1fr))}}
