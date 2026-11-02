@@ -210,3 +210,22 @@ img,svg,iframe{max-width:100%}
 #sky #hint{font-size:clamp(18px,1.8vw,24px);line-height:1.2}
 @media(max-width:600px){#sky .logo-payoff{font-size:13px;letter-spacing:3px}#sky #hint{font-size:19px}}
 body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 43%,#90caf066 0%,#90caf026 55%,transparent 85%);pointer-events:none}
+
+/* Homepage uses the catalog header's surface, sizing and alignment. */
+#sky>header.home-header{inset:0 0 auto;height:84px;min-height:0;padding:0 3.2vw;gap:42px;align-items:center;background:var(--paper);color:var(--text);border-bottom:1px solid var(--line);pointer-events:auto}
+#sky>header.home-header::before{display:none}
+#sky>header.home-header .edition{display:block;flex:none;width:105px;height:auto;line-height:0;letter-spacing:normal}
+#sky>header.home-header .edition img{display:block;width:100%;height:auto;max-height:none;filter:none}
+#sky>header.home-header .home-header-nav{display:flex;align-self:stretch;align-items:center;height:auto;margin:0 0 0 auto;color:var(--text)}
+#sky>header.home-header .home-header-nav a{display:flex;align-items:center;min-height:44px;font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase}
+#sky>header.home-header #light{align-self:center;margin:0;min-width:150px;min-height:40px;padding:8px 14px;gap:8px;font-size:12px;line-height:1.2;color:var(--text);border:1px solid var(--line);background:transparent}
+#sky>header.home-header #light .lamp{width:18px;height:18px;flex:none}
+@media(max-width:1200px){#sky>header.home-header{gap:25px}#sky>header.home-header .home-header-nav a{font-size:10px;letter-spacing:1px}}
+@media(max-width:960px){#sky>header.home-header{height:76px;gap:30px}}
+@media(max-width:600px){
+ #sky>header.home-header{height:68px;padding:0 5vw;gap:20px}
+ #sky>header.home-header .edition{width:70px}
+ #sky>header.home-header .home-header-nav a{font-size:11px}
+ #sky>header.home-header #light{min-width:33px;width:33px;min-height:33px;height:33px;padding:0}
+ #sky>header.home-header #light>span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+}
