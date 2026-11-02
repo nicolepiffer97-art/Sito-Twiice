@@ -249,3 +249,16 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
  .highlight-thumbnails{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc((100% - 20px)/3);overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:4px 0 10px;scrollbar-width:thin}
  .highlight-thumbnails .project-thumbnail{scroll-snap-align:start}
 }
+
+/* Keep the caption below the rotated cards in its own layout row. */
+.people-layout .original-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:0 22px;margin-bottom:0;padding-bottom:0}
+.people-layout .original-badges .original-badge{width:100%}
+.people-layout .original-badges .badge-concept-note{position:static;grid-column:1/-1;width:auto;margin:0;padding-top:70px;line-height:1.6}
+/* The form has its own surface, separate from the introduction. */
+.contact-layout>#brief-form{min-width:0;align-self:start;padding:32px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--paper) 96%,var(--text) 4%);box-shadow:0 12px 36px #10205a0a}
+@media(max-width:600px){
+ .people-layout .original-badges{gap:0 14px}
+ .people-layout .original-badges .badge-concept-note{padding-top:60px}
+ .contact-layout>#brief-form{padding:22px 18px;border-radius:14px}
+ .contact-layout>#brief-form fieldset:first-of-type{margin-top:0}
+}
