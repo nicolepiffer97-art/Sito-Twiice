@@ -237,3 +237,8 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
  #sky .backdrop{transform:none;will-change:auto}
  #sky #reveal{translate:none;will-change:auto}
 }
+
+/* Intro copy and service areas share a readable column. */
+.intro-description{min-width:0}
+.intro-bottom .intro-description p{max-width:none;margin:0}
+.intro-bottom .intro-description .intro-areas{margin-top:22px;font-size:13px;line-height:1.8}
