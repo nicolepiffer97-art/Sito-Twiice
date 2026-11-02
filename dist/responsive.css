@@ -152,7 +152,7 @@ img,svg,iframe{max-width:100%}
 #project-highlight .feature-project{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);height:clamp(440px,43vw,600px);min-height:0;background:#10205a}
 #project-highlight .feature-project::after{display:none}
 #project-highlight .feature-art{position:relative;inset:auto;grid-column:2;grid-row:1;height:100%;min-width:0;overflow:hidden}
-#project-highlight .feature-project .feature-art>img{position:static;inset:auto;width:100%;height:100%;object-fit:contain;object-position:center;background:transparent;transform:none}
+#project-highlight .feature-project .feature-art>img{display:block;position:static;inset:auto;width:100%;height:100%;object-fit:cover;object-position:center;background:transparent;transform:none}
 #project-highlight .feature-copy{position:static;grid-column:1;grid-row:1;max-width:none;align-self:center;padding:32px 12px 32px 42px}
 #project-highlight .feature-copy h3{font-size:clamp(36px,4.2vw,62px);line-height:.98;overflow-wrap:break-word}
 #project-highlight .feature-copy>p{max-width:290px}
