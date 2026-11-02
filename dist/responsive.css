@@ -152,7 +152,7 @@ img,svg,iframe{max-width:100%}
 #project-highlight .feature-project{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);height:clamp(440px,43vw,600px);min-height:0;background:#10205a}
 #project-highlight .feature-project::after{display:none}
 #project-highlight .feature-art{position:relative;inset:auto;grid-column:2;grid-row:1;height:100%;min-width:0;overflow:hidden}
-#project-highlight .feature-project .feature-art>img{position:static;inset:auto;width:100%;height:100%;object-fit:contain;object-position:center;background:transparent;transform:none}
+#project-highlight .feature-project .feature-art>img{display:block;position:static;inset:auto;width:100%;height:100%;object-fit:cover;object-position:center;background:transparent;transform:none}
 #project-highlight .feature-copy{position:static;grid-column:1;grid-row:1;max-width:none;align-self:center;padding:32px 12px 32px 42px}
 #project-highlight .feature-copy h3{font-size:clamp(36px,4.2vw,62px);line-height:.98;overflow-wrap:break-word}
 #project-highlight .feature-copy>p{max-width:290px}
@@ -211,28 +211,29 @@ img,svg,iframe{max-width:100%}
 @media(max-width:600px){#sky .logo-payoff{font-size:13px;letter-spacing:3px}#sky #hint{font-size:19px}}
 body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 43%,#90caf066 0%,#90caf026 55%,transparent 85%);pointer-events:none}
 
-/* White payoff, luminous card edges and artwork filling each image area. */
-#sky #hint,.night #sky #hint{color:var(--brand-ice);text-shadow:none}
-.night .motion-world,
-.night #project-highlight .feature-project,
-.night .thumbnail-image,
-.night .catalog-card-image,
-.night .tc-poster,
-.night .tc-hub,
-.night .detail-cover{outline:1px solid var(--brand-accent);outline-offset:1px}
-#project-highlight .feature-project .feature-art>img,
-.highlight-thumbnails .thumbnail-image>img,
-.detail-cover>img,.detail-cover.poster>img,.detail-cover.identity>img{object-fit:cover;background:transparent}
-.night .project-thumbnail[aria-pressed=true] .thumbnail-image{outline-width:2px;outline-offset:3px}
-
-/* The featured artwork spans the whole card; copy sits over a readable fade. */
-#project-highlight .feature-project{display:block;height:clamp(440px,43vw,600px)}
-#project-highlight .feature-art{position:absolute;inset:0;width:100%;height:100%}
-#project-highlight .feature-project::after{display:block;background:linear-gradient(90deg,#10205af2 0%,#10205ac9 28%,#10205a22 65%,transparent 100%)}
-#project-highlight .feature-copy{position:absolute;left:0;bottom:0;z-index:1;width:45%;padding:36px 42px}
+/* Homepage uses the catalog header's surface, sizing and alignment. */
+#sky>header.home-header{inset:0 0 auto;height:84px;min-height:0;padding:0 3.2vw;gap:42px;align-items:center;background:var(--paper);color:var(--text);border-bottom:1px solid var(--line);pointer-events:auto}
+#sky>header.home-header::before{display:none}
+#sky>header.home-header .edition{display:block;flex:none;width:105px;height:auto;line-height:0;letter-spacing:normal}
+#sky>header.home-header .edition img{display:block;width:100%;height:auto;max-height:none;filter:none}
+#sky>header.home-header .home-header-nav{display:flex;align-self:stretch;align-items:center;height:auto;margin:0 0 0 auto;color:var(--text)}
+#sky>header.home-header .home-header-nav a{display:flex;align-items:center;min-height:44px;font-size:12px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase}
+#sky>header.home-header #light{align-self:center;margin:0;min-width:150px;min-height:40px;padding:8px 14px;gap:8px;font-size:12px;line-height:1.2;color:var(--text);border:1px solid var(--line);background:transparent}
+#sky>header.home-header #light .lamp{width:18px;height:18px;flex:none}
+@media(max-width:1200px){#sky>header.home-header{gap:25px}#sky>header.home-header .home-header-nav a{font-size:10px;letter-spacing:1px}}
+@media(max-width:960px){#sky>header.home-header{height:76px;gap:30px}}
 @media(max-width:600px){
- #project-highlight .feature-project{display:block;height:520px}
- #project-highlight .feature-art{position:absolute;inset:0;width:100%;height:100%}
- #project-highlight .feature-project::after{background:linear-gradient(0deg,#10205af2 0%,#10205ab3 35%,transparent 75%)}
- #project-highlight .feature-copy{left:0;bottom:0;width:100%;padding:26px;max-width:none}
+ #sky>header.home-header{height:68px;padding:0 5vw;gap:20px}
+ #sky>header.home-header .edition{width:70px}
+ #sky>header.home-header .home-header-nav a{font-size:11px}
+ #sky>header.home-header #light{min-width:33px;width:33px;min-height:33px;height:33px;padding:0}
+ #sky>header.home-header #light>span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+}
+
+/* Independent scroll layers preserve the hero's existing layout. */
+#sky .backdrop{transform:translate3d(0,var(--sky-depth,0px),0);will-change:transform}
+#sky #reveal{translate:0 var(--logo-depth,0px);will-change:translate}
+@media(prefers-reduced-motion:reduce){
+ #sky .backdrop{transform:none;will-change:auto}
+ #sky #reveal{translate:none;will-change:auto}
 }

@@ -24,25 +24,6 @@ addAttachment.addEventListener('click',()=>{attachmentSequence++;const slot=docu
 contactForm.addEventListener('submit',event=>{if(!validateAttachments()){event.preventDefault();contactForm.reportValidity();return}const button=contactForm.querySelector('[type="submit"]');document.querySelector('#brief-status').textContent='Invio in corso…';button.disabled=true;button.firstChild.textContent='Invio in corso '});
 addEventListener('pageshow',()=>{const button=contactForm.querySelector('[type="submit"]');button.disabled=false;button.firstChild.textContent='Invia la tua idea ';document.querySelector('#brief-status').textContent=''});
 
-// Reveal the compact wordmark only after the central artwork has left the viewport.
-const compactWordmark=document.querySelector('header .edition');
-const centralWordmark=document.querySelector('#reveal h1 img');
-function syncCompactWordmark(){
-  const box=centralWordmark.getBoundingClientRect();
-  compactWordmark.hidden=box.bottom>0;
-  document.querySelector(".home-header-nav").hidden=box.bottom>0;
-}
-if('IntersectionObserver' in window){
-  const wordmarkObserver=new IntersectionObserver(()=>syncCompactWordmark(),{threshold:0});
-  wordmarkObserver.observe(centralWordmark);
-}else{
-  addEventListener('scroll',syncCompactWordmark,{passive:true});
-}
-addEventListener('resize',syncCompactWordmark);
-addEventListener('pageshow',syncCompactWordmark);
-centralWordmark.addEventListener('load',syncCompactWordmark);
-syncCompactWordmark();
-
 // Fade content beneath the fixed header as it reaches the navigation controls.
 const siteHeader=document.querySelector('#sky > header');
 function syncHeaderSurface(){
@@ -59,3 +40,19 @@ addEventListener('resize',syncHeaderSurface);
 addEventListener('pageshow',syncHeaderSurface);
 syncHeaderSurface();
 
+
+// Scroll depth: the sky and wordmark travel more slowly than the page.
+const parallaxMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let parallaxFrame=0;
+function syncParallax(){
+ parallaxFrame=0;
+ const distance=parallaxMotion.matches?0:Math.min(sky.offsetHeight,Math.max(0,-sky.getBoundingClientRect().top));
+ sky.style.setProperty('--sky-depth',distance*.38+'px');
+ sky.style.setProperty('--logo-depth',distance*.16+'px');
+}
+function queueParallax(){if(!parallaxFrame)parallaxFrame=requestAnimationFrame(syncParallax)}
+addEventListener('scroll',queueParallax,{passive:true});
+addEventListener('resize',queueParallax);
+addEventListener('pageshow',queueParallax);
+parallaxMotion.addEventListener('change',queueParallax);
+syncParallax();
