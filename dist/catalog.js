@@ -11,8 +11,8 @@ const categories=[
   {id:'web',title:'<web/>',sub:'ESPERIENZE E INTERAZIONE',image:'assets/twiice-home-day.jpg',description:'Esperienze digitali e strumenti da esplorare direttamente nel browser.'},
   {id:'tools',title:'AI & tools',sub:'SPERIMENTARE, CREARE',image:'assets/catalog/cosmos.jpg',description:'Intelligenza artificiale e strumenti creativi. Piccole connessioni, nuove possibilità.'}
 ];
-const nicoleCategories={astrocane:['video','images','tools'],'engineering-2k':['brand'],coreve:['video','images','tools'],twiice:['web']};
-const studio=(window.TWIICE_PROJECTS||[]).map(p=>({...p,name:p.id,author:p.id==='twiice'?'TWIICE':'Nicole Piffer',type:'project',categories:nicoleCategories[p.id]||['images'],url:`progetto.html?id=${encodeURIComponent(p.id)}`,external:false,kicker:'TWIICE / IN PRIMO PIANO'}));
+const nicoleCategories={'the-coffin':['video','images','tools'],astrocane:['video','images','tools'],'engineering-2k':['brand'],coreve:['video','images','tools'],twiice:['web']};
+const studio=(window.TWIICE_PROJECTS||[]).map(p=>({...p,name:p.id,author:p.author||(p.id==='twiice'?'TWIICE':'Nicole Piffer'),type:'project',categories:nicoleCategories[p.id]||['images'],url:`progetto.html?id=${encodeURIComponent(p.id)}`,external:false,kicker:'TWIICE / IN PRIMO PIANO'}));
 const repositories=window.TWIICE_REPOSITORIES||[];
 const projects=[...studio,...repositories];
 const main=document.querySelector('#catalog-view');
