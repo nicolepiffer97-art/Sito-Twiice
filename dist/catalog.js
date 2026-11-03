@@ -24,7 +24,8 @@ const header=document.querySelector('.portfolio-header');
 const light=document.querySelector('#portfolio-light');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let night=false;
-let activeCategory='all',query='';
+const requestedCategory=new URLSearchParams(location.search).get('category');
+let activeCategory=categories.some(c=>c.id===requestedCategory)?requestedCategory:'all',query='';
 try{night=JSON.parse(sessionStorage.getItem('twiice-night'))===true}catch{}
 function setTheme(value){night=value;document.body.classList.toggle('night',night);light.setAttribute('aria-pressed',String(night));document.querySelector('#portfolio-light-label').textContent=night?'Accendi la luce':'Spegni la luce';document.querySelectorAll('[data-brand-logo]').forEach(img=>img.src=night?'twiice-logo-hq-dark.svg':'twiice-logo-hq-day.svg');document.querySelector('meta[name="theme-color"]').content=night?'#10205A':'#F7F8FC';try{sessionStorage.setItem('twiice-night',JSON.stringify(night))}catch{}}
 setTheme(night);light.addEventListener('click',()=>setTheme(!night));

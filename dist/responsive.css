@@ -272,3 +272,61 @@ body:not(.night) #sky .backdrop::after{content:'';position:absolute;inset:0;back
 #sky>header.home-header.header-over-content .home-header-nav,#sky>header.home-header.header-over-content #light{color:var(--brand-ink)}
 #sky>header.home-header.header-over-content #light{border-color:#18234a60}
 @media(prefers-reduced-motion:reduce){#sky>header.home-header{transition:none}}
+
+/* All hero copy shares one scroll depth, including the downward invitation. */
+#sky .scroll-invite{translate:0 var(--logo-depth,0px)}
+/* Shared text actions; navigation and image selectors keep their own affordances. */
+body .action-link,body .world-detail a.action-link,body #add-attachment.action-link{
+ display:inline-flex;align-items:center;justify-content:space-between;gap:20px;width:fit-content;max-width:100%;min-height:44px;
+ padding:8px 0;border:0;border-bottom:1px solid var(--brand-accent);border-radius:0;background:transparent;color:inherit;
+ font-family:var(--font-body);font-size:13px;font-weight:400;line-height:1.5;text-decoration:none;
+ box-shadow:inset 0 0 var(--brand-accent);cursor:pointer;transition:box-shadow .22s ease,color .22s ease;
+}
+body .action-link:hover{background:transparent;box-shadow:inset 0 -3px var(--brand-accent);color:inherit}
+body .action-link .action-arrow{display:inline-block;flex:none;font-size:18px;color:inherit;transition:transform .22s ease}
+body .action-link:hover .action-arrow{transform:translate(3px,-3px)}
+body .action-link:disabled{opacity:.35;cursor:default;box-shadow:none}
+body .action-link:disabled .action-arrow{transform:none}
+body .feature-open.action-link{color:white}
+body .brief-submit.action-link{margin-top:22px}
+body .brief-submit.action-link .action-arrow{color:inherit}
+.thumbnail-scroll-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:650px;margin-top:8px}
+.thumbnail-scroll-controls[hidden]{display:none}
+.thumbnail-scroll-controls>span{font-size:11px;color:var(--muted)}
+/* One footer row on desktop; a single return link replaces its words on mobile. */
+.site-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 6%}
+.site-footer>p{margin:0;white-space:nowrap;font-size:11px}
+.site-footer>nav{display:flex;align-items:center;gap:24px;font-size:11px;white-space:nowrap}
+.site-footer .footer-up{display:none}
+@media(max-width:900px) and (min-width:601px){
+ .site-footer{gap:14px;padding-inline:4%}
+ .site-footer>nav{gap:14px}
+ .site-footer>p,.site-footer>nav{font-size:10px}
+ .site-footer img{width:80px}
+}
+@media(max-width:600px){
+ .thumbnail-scroll-controls{max-width:none}
+ .site-footer{padding:20px 6%;gap:20px}
+ .site-footer>p,.site-footer>nav{display:none}
+ .site-footer .footer-up{display:inline-flex}
+}
+@media(prefers-reduced-motion:reduce){
+ #sky .scroll-invite{translate:none}
+ body .action-link,body .action-link .action-arrow{transition:none}
+}
+
+/* Fade the hero invitation before it reaches the next surface. */
+#sky .scroll-invite{opacity:var(--invite-opacity,1)}
+#universo{scroll-margin-top:0}
+html:has(#sky){scroll-padding-top:0}
+/* Stronger primary submit action, using the current theme's accent. */
+body .brief-submit.action-link{width:100%;padding:14px 18px;border:1px solid var(--brand-accent);border-radius:6px;background:var(--brand-accent);color:var(--brand-night);font-size:15px;font-weight:700;box-shadow:none}
+body .brief-submit.action-link:hover{background:var(--brand-accent);color:var(--brand-night);box-shadow:0 4px 16px rgba(var(--brand-glow-rgb),.28)}
+body #add-attachment.action-link:hover .action-arrow{transform:rotate(90deg)}
+body .site-footer .footer-up,body .site-footer .footer-up:hover{border:0;box-shadow:none}
+@media(max-width:600px){
+ .site-footer{display:grid;grid-template-columns:1fr;justify-items:center;text-align:center}
+ .site-footer>a:first-child{justify-self:center}
+ .site-footer .footer-up{justify-self:center}
+}
+body.night button:focus-visible,body.night a:focus-visible,body.night summary:focus-visible{outline-color:var(--brand-accent)}
