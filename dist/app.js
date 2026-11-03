@@ -47,7 +47,9 @@ const parallaxMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let parallaxFrame=0;
 function syncParallax(){
  parallaxFrame=0;
- const distance=parallaxMotion.matches?0:Math.min(sky.offsetHeight,Math.max(0,-sky.getBoundingClientRect().top));
+ const scrollDistance=Math.min(sky.offsetHeight,Math.max(0,-sky.getBoundingClientRect().top));
+ const distance=parallaxMotion.matches?0:scrollDistance;
+ sky.style.setProperty('--invite-opacity',String(Math.max(0,1-scrollDistance/(sky.offsetHeight*.28))));
  sky.style.setProperty('--sky-depth',distance*.38+'px');
  sky.style.setProperty('--logo-depth',distance*.16+'px');
 }
@@ -76,3 +78,10 @@ addEventListener('resize',syncChoiceControls);
 addEventListener('pageshow',syncChoiceControls);
 if('ResizeObserver' in window)new ResizeObserver(syncChoiceControls).observe(projectChoices);
 requestAnimationFrame(syncChoiceControls);
+
+document.querySelector('.scroll-invite').addEventListener('click',event=>{
+ event.preventDefault();
+ const section=document.querySelector('#universo');
+ history.pushState(null,'','#universo');
+ window.scrollTo({top:window.scrollY+section.getBoundingClientRect().top,behavior:parallaxMotion.matches?'instant':'smooth'});
+});
