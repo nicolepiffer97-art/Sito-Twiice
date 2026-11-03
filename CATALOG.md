@@ -1,36 +1,46 @@
-# Il catalogo Progetti TWIICE
+# Progetti TWIICE
 
-Integrazione preparata sul branch **`work/twiice-updates`**, a partire da `0f9b57c23f4173d77b340828c7c219ef74ac9a86`.
+[Apri la pagina Progetti](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html).
 
-La pagina `dist/progetti.html`, già collegata dalla home, ospita il catalogo con slider, categorie animate, caroselli, ricerca e lista personale. Il layout riprende il catalogo di Raffaele; palette, caratteri, logo, stella e cambio giorno/notte appartengono a TWIICE.
+La pagina `dist/progetti.html` apre con una fascia di immagini a scorrimento. Il titolo «Progetti» e il sottotitolo rimangono fissi in un livello separato dalle immagini: non ci sono testi, descrizioni o pulsanti dei singoli progetti nella fascia. Le cinque immagini in evidenza mantengono frecce laterali, scorrimento automatico e comandi da tastiera; pallini e pulsante pausa sono rimossi. Il movimento si ferma al passaggio del mouse, al focus, quando la pagina non è visibile e con la preferenza di movimento ridotto. Sotto rimane la griglia di tutti i 14 progetti, senza scorrimento laterale. Categorie e ricerca seguono direttamente la fascia, senza un secondo titolo. I cinque pulsanti riprendono lo stile arrotondato del sito: **Tutti i progetti** è selezionato all’apertura, seguito dalle quattro categorie.
 
-## Contenuti
+## Categorie
 
-- I quattro progetti esistenti — Astrocane, Engineering 2K, CoReVe e TWIICE — continuano a essere letti da `dist/projects-data.js`. Le loro schede, immagini, video e contenuti non sono stati modificati.
-- Le nove repository di Raffaele sono in `dist/repositories-data.js`. Un clic sulla locandina apre la repository su GitHub in una nuova scheda.
-- Un clic sui progetti di Nicole/TWIICE apre la corrispondente scheda `progetto.html?id=…` nella stessa scheda del browser.
-- Il pulsante **i** mostra una scheda informativa. Il pulsante **+** salva qualunque progetto in **La mia lista**, usando `localStorage`. Il tema usa la stessa chiave `twiice-night` in `sessionStorage` già utilizzata dal resto del sito.
+- **Identità e comunicazione:** Engineering 2K.
+- **Immagini e movimento:** Astrocane, CoReVe, The Coffin, gallery-dl-windows-gui, yt-dlp-windows-gui, batch-image-resizer.
+- **Esperienza e interazione:** TWIICE, before-after-slider, camera-motion-studio.
+- **AI tools:** ComfyUI-RPNodes, realtime-captions-system-audio-gui, chatbot_ZURU, chatbot_semplice.
 
-Categorie, raccolte e scelta degli elementi in evidenza si modificano in `dist/catalog.js`. Layout, dimensioni, breakpoint, posizione delle caption, comparsa delle frecce, zoom delle card e animazioni delle categorie in `dist/catalog.css` riprendono le regole del catalogo originale di Raffaele. Anche i gestori di slider e caroselli sono portati dal codice originale: scorrimento fluido, aggancio delle card, passo delle frecce e comandi da tastiera restano gli stessi.
+Le assegnazioni sono in `projectCategories` in `dist/catalog.js`. Ogni progetto ha una categoria; la vista iniziale li mostra tutti una volta sola. La ricerca filtra la griglia e si combina con la categoria selezionata. La ricerca è disponibile soltanto nel campo «Cerca un progetto…» sopra la griglia; l’header non contiene un secondo comando Cerca. I filtri e la ricerca agiscono sulla griglia e non ricostruiscono la fascia superiore. I vecchi frammenti come `#all` e `#search` vengono rimossi dall’indirizzo e aprono la griglia unica.
 
-La grafica TWIICE è applicata separatamente in `dist/catalog-theme.css`: palette, caratteri, superfici, bordi e marchio. Il menu torna nella barra superiore fissa, come nel catalogo originale. I pulsanti delle card compaiono sulle immagini al passaggio del mouse o al focus; le caption restano su una riga sotto le locandine. Le barre di scorrimento native sono nascoste. Gli stili sono isolati dalla home e dalle schede originali con classi `tc-` e il selettore `.catalog-page`.
+## Contenuti e interazioni
 
-Le immagini illustrative delle repository sono in `dist/assets/catalog/` e provengono dal precedente catalogo di Raffaele. Sono fotografie da [Unsplash](https://unsplash.com/license): [cosmos](https://images.unsplash.com/photo-1462331940025-496dfbfc7564), [mountain](https://images.unsplash.com/photo-1519681393784-d120267933ba), [neon](https://images.unsplash.com/photo-1544885935-98dd03b09034), [forest](https://images.unsplash.com/photo-1441974231531-c6227db76b6e), [ocean](https://images.unsplash.com/photo-1518837695005-2083093ee35b), [camera](https://images.unsplash.com/photo-1516035069371-29a1b244cc32), [desert](https://images.unsplash.com/photo-1509316785289-025f5b846b35), [earth](https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4), [aurora](https://images.unsplash.com/photo-1531366936337-7c912a4589a7). Il logo Raffaele+ e gli asset Disney non sono inclusi.
+I quattro lavori di Nicole/TWIICE vengono letti da `dist/projects-data.js` e aprono le schede originali `progetto.html?id=…`. Le nove repository di Raffaele sono in `dist/repositories-data.js` e aprono GitHub in una nuova scheda. Il titolo è sotto l’immagine e apre direttamente il progetto. I pulsanti informativi e le relative finestre sono rimossi dalla fascia e dalla griglia. In **Tutti i progetti**, il sottotitolo indica soltanto la categoria; nei filtri di categoria il sottotitolo è assente. La funzione di salvataggio nella lista e i relativi pulsanti sono stati rimossi, da tutta la pagina. Le immagini sono prive di etichette sovrapposte. Le schede, immagini, video e contenuti originali dei progetti restano invariati.
 
-## Anteprima del branch
+Il tema condivide la chiave `twiice-night` in `sessionStorage` con il resto del sito. La griglia è in `catalog.css`, la fascia e il titolo fisso in `catalog-hero.css`, palette e header in `catalog-theme.css`. Home, schede originali, stelle e movimento dell’header continuano a usare i propri file condivisi.
 
-Dal checkout di questo branch:
+## Sviluppo e pubblicazione
 
 ```sh
 python -m http.server 4180 --directory dist
 ```
 
-Apri `http://localhost:4180/progetti.html`. Il percorso home → Progetti usa già questa pagina.
+Apri `http://localhost:4180/progetti.html`. Il workflow GitHub Pages pubblica `dist/` da `main`, senza compilazione o dipendenze.
 
-Il workflow GitHub Pages originale pubblica esclusivamente `main` ed è rimasto invariato. Dopo l’approvazione, l’integrazione sviluppata su `work/twiice-updates` è stata portata in `main`. Il catalogo pubblico è disponibile su [Progetti TWIICE](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html). Un successivo push sul solo branch di lavoro non modifica il sito pubblico.
+Le immagini delle repository sono in `dist/assets/catalog/`, provengono dal catalogo di Raffaele e sono fotografie da [Unsplash](https://unsplash.com/license). Non sono inclusi logo Raffaele+ o asset Disney.
 
 ## Verifiche
 
-Il comportamento è confrontato con `raffaele-pet/raffaele-plus` al commit `4aff7db`: a 1010 e 390 px coincidono dimensioni di card e banner, spaziature, aggancio dello scorrimento, posizione e comparsa dei controlli, caption e tempi delle animazioni. Il passo della freccia sul primo carosello coincide (923 px nel confronto desktop), così come lo zoom 1,055 e la rivelazione dei pulsanti al focus. I gestori di slider e caroselli derivano dagli originali, con adattamento dei selettori e dei nomi delle variabili.
+Controllati in browser: un solo titolo «Progetti», posizione e testo invariati al cambio immagine, avanzamento automatico, frecce, assenza di pallini/pausa e di testi o azioni dei singoli progetti nella fascia. Verificati inoltre i 13 progetti iniziali, filtri e ricerca combinata, sottotitoli di categoria solo nella vista completa, tema giorno/notte e impaginazione mobile senza overflow orizzontale. Sintassi JavaScript e file condivisi della home e delle schede originali controllati senza modifiche.
 
-Controllati inoltre: 13 elementi e relativi URL/immagini, ricerca, schede informative, tema giorno/notte, sintassi JavaScript e assenza di modifiche a home, schede, dati e workflow condivisi originali. Preferiti misti, navigazione dalla home alle schede e persistenza del tema erano già verificati durante l’integrazione.
+## The Coffin
+
+[Apri la scheda The Coffin](https://nicolepiffer97-art.github.io/Sito-Twiice/progetto.html?id=the-coffin).
+
+La nuova scheda segue un percorso lineare: video principale in grande, titolo e i sei paragrafi forniti in inglese allineati a sinistra, video making of più raccolto e galleria di 11 immagini. I lettori YouTube includono un collegamento diretto al video. Il nuovo progetto è in **Immagini e movimento** e usa la copertina fornita nel catalogo.
+
+`dist/coffin-data.js` aggiunge il progetto solo al catalogo e alle schede; la selezione nella homepage e i dati originali non cambiano. Il rendering dedicato è in `dist/film-project.js`, lo stile è circoscritto in `dist/film-project.css`. Gli altri quattro progetti mantengono il proprio layout. Le immagini fornite sono salvate localmente in WebP, con miniature separate per la galleria; le didascalie e i link sorgente Drive conservano i nomi originali in `coffin-data.js`.
+
+La galleria apre un dialogo modale con frecce precedente/successiva, tasti ←/→, Esc, chiusura sullo sfondo e swipe su touch. Lo scorrimento torna alla prima immagine dopo l’ultima. Il dialogo trattiene il focus e lo restituisce alla miniatura alla chiusura. Verificati catalogo, ricerca e categoria, ordine dei contenuti, quattro colonne desktop, due colonne mobile e assenza di overflow. YouTube può rifiutare il video principale dall’origine locale: verificare il lettore sul dominio pubblico dopo la pubblicazione.
+
+Il video principale apre direttamente la scheda, senza collegamento di ritorno sopra: mantiene il formato 16:9 e si adatta anche all’altezza visibile, per essere interamente visibile sotto l’header senza scroll iniziale.
