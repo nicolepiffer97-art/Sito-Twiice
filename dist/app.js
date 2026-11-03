@@ -6,7 +6,7 @@ function setNight(night){document.body.classList.toggle('night',night);document.
 setNight(storage.get('twiice-night',false)===true);light.addEventListener('click',()=>setNight(!document.body.classList.contains('night')));
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();const tools=[{name:'read_twiice_sky',description:'Read TWIICE theme and collected stars across the site.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute(){return {night:document.body.classList.contains('night'),logoVisible:true,collected:window.TwiiceStars?.read()??[]}}},{name:'set_twiice_light',description:'Set TWIICE to day or night.',inputSchema:{type:'object',properties:{night:{type:'boolean'}},required:['night'],additionalProperties:false},annotations:{readOnlyHint:false},execute(input){if(typeof input.night!=='boolean')throw Error('night must be boolean');setNight(input.night);return {night:input.night}}}];for(const tool of tools){try{Promise.resolve(document.modelContext.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{})}catch{}}addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}
 // Contact details are submitted only when the visitor sends the form.
-document.querySelector('#year').textContent=String(new Date().getFullYear());
+
 document.querySelectorAll('[data-interest]').forEach(link=>link.addEventListener('click',()=>{const choice=[...document.querySelectorAll('input[name="interest"]')].find(input=>input.value===link.dataset.interest);if(choice)choice.checked=true}));
 const contactForm=document.querySelector('#brief-form'),attachmentList=document.querySelector('#attachment-list'),attachmentStatus=document.querySelector('#attachment-status'),addAttachment=document.querySelector('#add-attachment');
 let attachmentSequence=1;
@@ -57,3 +57,22 @@ addEventListener('resize',queueParallax);
 addEventListener('pageshow',queueParallax);
 parallaxMotion.addEventListener('change',queueParallax);
 syncParallax();
+
+// Show navigation only when project choices overflow the available width.
+const projectChoices=document.querySelector('#highlight-thumbnails');
+const choiceControls=document.querySelector('.thumbnail-scroll-controls');
+function syncChoiceControls(){
+ const overflow=projectChoices.scrollWidth>projectChoices.clientWidth+2;
+ choiceControls.hidden=!overflow;
+ choiceControls.querySelector('[data-thumbnail-step="-1"]').disabled=projectChoices.scrollLeft<=2;
+ choiceControls.querySelector('[data-thumbnail-step="1"]').disabled=projectChoices.scrollLeft+projectChoices.clientWidth>=projectChoices.scrollWidth-2;
+}
+choiceControls.addEventListener('click',event=>{
+ const button=event.target.closest('[data-thumbnail-step]');
+ if(button)projectChoices.scrollBy({left:Number(button.dataset.thumbnailStep)*projectChoices.clientWidth,behavior:parallaxMotion.matches?'instant':'smooth'});
+});
+projectChoices.addEventListener('scroll',syncChoiceControls,{passive:true});
+addEventListener('resize',syncChoiceControls);
+addEventListener('pageshow',syncChoiceControls);
+if('ResizeObserver' in window)new ResizeObserver(syncChoiceControls).observe(projectChoices);
+requestAnimationFrame(syncChoiceControls);
