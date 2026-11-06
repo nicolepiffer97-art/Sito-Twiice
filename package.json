@@ -1,6 +1,6 @@
 {
   "name": "twiice-site",
   "private": true,
-  "scripts": { "test": "node star-audit.cjs" },
+  "scripts": { "test": "node star-audit.cjs", "test:game": "node gameplay-audit.cjs" },
   "devDependencies": { "playwright": "1.62.1" }
 }
