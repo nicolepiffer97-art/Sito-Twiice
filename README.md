@@ -52,3 +52,10 @@ Verificati: sintassi JavaScript, riferimenti agli asset e ID HTML, identità
 della fotografia originale. Un controllo con DOM simulato verifica avvio,
 cambio tema, raccolta solo di notte e completamento delle scie tornando al
 giorno. Verifica visiva in browser non disponibile nell’ambiente corrente.
+
+## Little Star · livello segreto
+Le 12 stelle raccolte sulle pagine del sito sbloccano una costellazione animata, il messaggio **Wonder Found** e un varco verso `little-star/`. Il collegamento **✦ Wonder Found** rimane disponibile in tutte le pagine della caccia, anche in modalità giorno. Lo sblocco persiste in localStorage con fallback sessionStorage; i progressi della caccia mantengono il comportamento di sessione esistente. La sequenza rispetta le preferenze di movimento ridotto, ha chiusura e navigazione da tastiera, e non si ripete dopo lo sblocco.
+
+Il gioco è incluso direttamente in `dist/little-star/` per essere pubblico su GitHub Pages senza account ChatGPT. Il ritorno al sito punta alla home relativa `../index.html`. Hall of Stars simulata: nomi di esempio e punteggi nel browser, senza database globale.
+
+`site-stars.js` emette `twiice:stars-progress` quando il contatore visivo termina una raccolta. `secret-level.js` gestisce lo sblocco senza cambiare posizioni o regole delle stelle esistenti. La pagina pubblica Wonder/R&D resta separata dal gioco.
