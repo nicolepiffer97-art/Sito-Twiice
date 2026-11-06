@@ -10,3 +10,7 @@ body[data-state="over"] .overlay{z-index:4;background:#080f24dc;padding:70px 20p
 .game-over-title{font-size:clamp(44px,8vw,80px);margin:0 0 8px}.overlay .game-over-subtitle{font-size:16px;color:var(--mint);margin:0 0 24px}.overlay #reason{font-size:20px;color:white;font-weight:700}.result{margin:0 0 18px}
 @media(max-width:650px){#stage{font-size:12px;max-width:180px}.score-panel strong{font-size:25px}.overlay .legend{font-size:13px!important;gap:8px}.overlay{padding:90px 16px}.metrics{gap:24px}}
 @media(max-height:550px){.overlay .legend{display:flex;margin-top:10px}.overlay{padding:60px 20px}.overlay .game-over-subtitle{margin-bottom:8px}.overlay #reason{margin:5px}.result{margin:0;font-size:26px}.save{margin:5px}body[data-state="over"] .overlay{justify-content:safe center;padding:16px}}
+
+.result-ranking{width:min(100%,560px);max-height:55dvh;overflow-y:auto;text-align:left;margin:12px 0 18px}.result-ranking li{font-size:14px}.overlay>h2+ol{flex:none}#saveNote{max-width:360px;line-height:1.6;text-align:center}
+
+.overlay .result-ranking small,.overlay #saveNote{display:block}
