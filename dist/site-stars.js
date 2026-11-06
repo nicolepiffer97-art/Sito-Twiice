@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const total=12,key='twiice-site-stars-v2',reduced=matchMedia('(prefers-reduced-motion:reduce)');
+const total=8,key='twiice-site-stars-v2',reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let saved=[];try{saved=JSON.parse(sessionStorage.getItem(key))??[]}catch{}
 const collected=new Set(Array.isArray(saved)?saved.filter(n=>Number.isInteger(n)&&n>=0&&n<total):[]);
 const paths=["M46.33 4.0 L48.53 5.83 L51.83 17.2 L56.96 31.12 L59.9 30.76 L87.75 21.96 L89.59 21.96 L89.59 23.06 L63.93 51.28 L63.93 53.85 L67.59 65.58 L70.53 72.54 L73.09 80.97 L73.09 82.8 L69.43 82.07 L52.93 71.81 L47.8 69.61 L30.57 88.3 L30.57 89.04 L27.27 91.97 L27.27 92.7 L23.98 96.0 L23.24 96.0 L23.24 93.8 L31.67 59.71 L23.61 54.58 L18.11 52.02 L14.81 49.45 L11.88 48.35 L10.41 47.25 L10.41 46.15 L32.41 39.55 L37.54 37.35 L44.87 6.93 Z", "M61.17 7.41 L63.06 7.79 L61.55 33.15 L61.93 37.32 L93.73 40.35 L95.62 40.72 L96.0 41.86 L69.5 55.11 L68.36 55.11 L67.98 55.87 L66.85 55.87 L59.65 60.03 L58.52 70.63 L58.52 80.1 L57.0 92.59 L55.11 92.21 L53.6 90.7 L49.43 84.26 L46.02 80.86 L41.86 74.42 L38.45 70.63 L36.56 70.63 L8.54 84.64 L4.0 86.16 L6.65 81.23 L25.96 55.49 L25.2 52.84 L17.63 43.75 L16.87 41.86 L11.95 36.18 L10.81 33.91 L11.57 33.15 L13.84 33.15 L33.53 35.42 L40.72 35.42 Z"];
@@ -17,15 +17,11 @@ const projectId=new URLSearchParams(location.search).get('id');const projectIds=
 if(document.querySelector('#sky'))placements.push(
 {id:0,host:'#sky',x:'16%',y:'26%',angle:-12},
 {id:6,host:'#universo',x:'92%',y:'70%',angle:18},
-{id:7,host:'#progetti',x:'96%',y:'15%',angle:-18},
-{id:8,host:'#contatto',x:'4%',y:'76%',angle:10});
+{id:7,host:'#progetti',x:'96%',y:'15%',angle:-18});
 else if(document.querySelector('#catalog-rows'))placements.push(
-{id:1,host:'.catalog-content',x:'95%',y:'23%',angle:14},
-{id:9,host:'.catalog-content',x:'3%',y:'72%',angle:-16});
+{id:1,host:'.catalog-content',x:'95%',y:'23%',angle:14});
 else if(document.querySelector('.detail-story')&&projectIds.includes(projectId)){
 placements.push({id:2+projectIds.indexOf(projectId),host:'.detail-story',x:'95%',y:'32%',angle:-9});
-if(projectId==='astrocane')placements.push({id:10,host:'.detail-gallery',x:'4%',y:'64%',angle:15});
-if(projectId==='coreve')placements.push({id:11,host:'.detail-gallery',x:'96%',y:'65%',angle:-14});
 }
 for(const placement of placements){const host=document.querySelector(placement.host);if(!host)continue;host.classList.add('site-star-host');const b=document.createElement('button');b.type='button';b.dataset.starId=String(placement.id);b.className='star site-star';b.style.cssText=`left:clamp(30px,${placement.x},calc(100% - 30px));top:${placement.y};--angle:${placement.angle}deg`;b.setAttribute('aria-label',`Raccogli la stella ${placement.id+1} di ${total}`);b.innerHTML=`<svg viewBox="0 0 100 100" aria-hidden="true"><path class="fill" d="${paths[placement.id%paths.length]}"/></svg>`;if(collected.has(placement.id)){b.disabled=true;b.classList.add('collected')}b.addEventListener('click',()=>collect(placement.id,b));host.append(b)}
 function syncTheme(){const night=document.body.classList.contains('night');counter.hidden=!night;counter.setAttribute('aria-hidden',String(!night));document.querySelectorAll('.site-star').forEach(b=>{b.hidden=!night});if(!night&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}}
@@ -54,8 +50,10 @@ function placeOnBackground(){
  for(const placement of placements){
   const host=document.querySelector(placement.host),button=host?.querySelector('[data-star-id="'+placement.id+'"]');
   if(!button)continue;
-  // A crowded section must provide space, never silently remove a collectible.
+  // Give every content-section star its own space at every breakpoint.
+  // The sky has a fixed height, so only its star uses background-space search.
   let space=host.querySelector('[data-star-space="'+placement.id+'"]');
+  if(placement.host!=='#sky'&&!space){space=document.createElement('div');space.className='site-star-space';space.dataset.starSpace=String(placement.id);space.setAttribute('aria-hidden','true');host.append(space)}
   if(space){const r=space.getBoundingClientRect(),h=host.getBoundingClientRect();button.style.left=(r.left-h.left+r.width/2)+'px';button.style.top=(r.top-h.top+r.height/2)+'px';button.style.visibility='';continue}
   const area=host.getBoundingClientRect(),half=22,pad=8;
   const obstacles=[...host.querySelectorAll('img,video,iframe,button,a,input,textarea,select,summary,h1,h2,h3,p,label,legend,figcaption,.detail-tags,.tc-poster,.tc-slide,.motion-world,.original-badge')]

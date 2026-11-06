@@ -23,7 +23,7 @@ rimosse dalla home e dall’anteprima del progetto. Gli asset precedenti sono
 conservati nel repository come riferimenti.
 
 Il pulsante in alto a destra cambia giorno/notte. Stelle, contatore e scie
-compaiono esclusivamente in modalità notte. Le dodici stelle riprendono le
+compaiono esclusivamente in modalità notte. Le otto stelle riprendono le
 due sagome del logo definitivo. Raccolta e tema persistono in sessionStorage.
 Tornando al giorno le scie in corso terminano senza perdere le raccolte.
 Il documento scorre dalla home alle sezioni successive con una sfumatura.
@@ -54,7 +54,7 @@ cambio tema, raccolta solo di notte e completamento delle scie tornando al
 giorno. Verifica visiva in browser non disponibile nell’ambiente corrente.
 
 ## Little Star · livello segreto
-Le 12 stelle raccolte sulle pagine del sito sbloccano una costellazione animata, il messaggio **Wonder Found** e un varco verso `little-star/`. Il collegamento **✦ Wonder Found** rimane disponibile in tutte le pagine della caccia, anche in modalità giorno. Lo sblocco persiste in localStorage con fallback sessionStorage; i progressi della caccia mantengono il comportamento di sessione esistente. La sequenza rispetta le preferenze di movimento ridotto, ha chiusura e navigazione da tastiera, e non si ripete dopo lo sblocco.
+Le 8 stelle raccolte sulle pagine del sito sbloccano una costellazione animata, il messaggio **Wonder Found** e un varco verso `little-star/`. Il collegamento **✦ Wonder Found** rimane disponibile in tutte le pagine della caccia, anche in modalità giorno. Lo sblocco persiste in localStorage con fallback sessionStorage; i progressi della caccia mantengono il comportamento di sessione esistente. La sequenza rispetta le preferenze di movimento ridotto, ha chiusura e navigazione da tastiera, e non si ripete dopo lo sblocco.
 
 Il gioco è incluso direttamente in `dist/little-star/` per essere pubblico su GitHub Pages senza account ChatGPT. Il ritorno al sito punta alla home relativa `../index.html`. Hall of Stars simulata: nomi di esempio e punteggi nel browser, senza database globale.
 
@@ -62,6 +62,6 @@ Il gioco è incluso direttamente in `dist/little-star/` per essere pubblico su G
 
 ## Verifica della caccia alle stelle
 
-Le dodici stelle hanno ID stabili (qui numerati da 1): home 1, 7, 8, 9; catalogo 2, 10; Astrocane 3, 11; Engineering 2K 4; CoReVe 5, 12; TWIICE 6. Quando una sezione non ha spazio libero, viene aggiunta una fascia di 80 px invece di nascondere la stella. L'area cliccabile misura almeno 44×44 px; il contatore e la grafica SVG non intercettano i clic destinati alle stelle.
+Le otto stelle hanno ID stabili (qui numerati da 1): home 1, 7, 8; catalogo 2; Astrocane 3; Engineering 2K 4; CoReVe 5; TWIICE 6. Ogni stella delle sezioni di contenuto occupa una fascia dedicata di 80 px, a tutte le larghezze; solo la stella del cielo cerca spazio sullo sfondo. Le quattro stelle rimosse non contribuiscono al contatore: gli ID mantenuti conservano i progressi precedenti. L'area cliccabile misura almeno 44×44 px; il contatore e la grafica SVG non intercettano i clic destinati alle stelle.
 
-Il sito è statico: non richiede build. Per i test di regressione: `npm install`, `npx playwright install chromium`, `npm test`. Per usare Edge già installato, impostare `PLAYWRIGHT_CHANNEL=msedge`. `star-audit.cjs` serve `dist/` localmente e verifica le dodici stelle a 1440, 768, 390 e 320 px: visibilità, bordi dello schermo, hitbox, sovrapposizioni, clic reali, raccolta animata e con movimento ridotto, contatore 12/12, persistenza, apertura singola e percorso Wonder → Little Star. I servizi esterni (font e video) sono esclusi dal test.
+Il sito è statico: non richiede build. Per i test di regressione: `npm install`, `npx playwright install chromium`, `npm test`. Per usare Edge già installato, impostare `PLAYWRIGHT_CHANNEL=msedge`. `star-audit.cjs` serve `dist/` localmente e verifica le otto stelle a 1440, 1024, 768, 600, 390 e 320 px: visibilità, bordi dello schermo, hitbox, sovrapposizioni, clic reali, raccolta animata e con movimento ridotto, contatore 8/8, persistenza, apertura singola e percorso Wonder → Little Star. I servizi esterni (font e video) sono esclusi dal test.
