@@ -1,6 +1,6 @@
 /* The final collectible opens the hidden sky. Kept separate from the public Wonder/R&D page. */
 (()=>{'use strict';
- const key='twiice-little-star-unlocked-v1',game=new URL('little-star/',document.currentScript.src).href;
+ const key='twiice-little-star-unlocked-v1',game=new URL('wonder/',document.currentScript.src).href;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  let unlocked=false,dialog=null,timers=[],previousFocus=null;
  for(const storage of ['localStorage','sessionStorage']){try{unlocked=unlocked||window[storage].getItem(key)==='true'}catch{}}
