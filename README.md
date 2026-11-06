@@ -58,4 +58,10 @@ Le 12 stelle raccolte sulle pagine del sito sbloccano una costellazione animata,
 
 Il gioco è incluso direttamente in `dist/little-star/` per essere pubblico su GitHub Pages senza account ChatGPT. Il ritorno al sito punta alla home relativa `../index.html`. Hall of Stars simulata: nomi di esempio e punteggi nel browser, senza database globale.
 
-`site-stars.js` emette `twiice:stars-progress` quando il contatore visivo termina una raccolta. `secret-level.js` gestisce lo sblocco senza cambiare posizioni o regole delle stelle esistenti. La pagina pubblica Wonder/R&D resta separata dal gioco.
+`site-stars.js` emette `twiice:stars-progress` quando il contatore visivo termina una raccolta. `secret-level.js` gestisce lo sblocco. Il collegamento Wonder Found passa da `wonder/`, che verifica lo sblocco e porta a Little Star; senza sblocco mostra l'invito a raccogliere le stelle. Il filtro pubblico Wonder/R&D del catalogo resta separato dal gioco. Su GitHub Pages il percorso completo è `/Sito-Twiice/wonder/`.
+
+## Verifica della caccia alle stelle
+
+Le dodici stelle hanno ID stabili (qui numerati da 1): home 1, 7, 8, 9; catalogo 2, 10; Astrocane 3, 11; Engineering 2K 4; CoReVe 5, 12; TWIICE 6. Quando una sezione non ha spazio libero, viene aggiunta una fascia di 80 px invece di nascondere la stella. L'area cliccabile misura almeno 44×44 px; il contatore e la grafica SVG non intercettano i clic destinati alle stelle.
+
+Il sito è statico: non richiede build. Per i test di regressione: `npm install`, `npx playwright install chromium`, `npm test`. Per usare Edge già installato, impostare `PLAYWRIGHT_CHANNEL=msedge`. `star-audit.cjs` serve `dist/` localmente e verifica le dodici stelle a 1440, 768, 390 e 320 px: visibilità, bordi dello schermo, hitbox, sovrapposizioni, clic reali, raccolta animata e con movimento ridotto, contatore 12/12, persistenza, apertura singola e percorso Wonder → Little Star. I servizi esterni (font e video) sono esclusi dal test.

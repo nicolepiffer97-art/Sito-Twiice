@@ -54,9 +54,12 @@ function placeOnBackground(){
  for(const placement of placements){
   const host=document.querySelector(placement.host),button=host?.querySelector('[data-star-id="'+placement.id+'"]');
   if(!button)continue;
+  // A crowded section must provide space, never silently remove a collectible.
+  let space=host.querySelector('[data-star-space="'+placement.id+'"]');
+  if(space){const r=space.getBoundingClientRect(),h=host.getBoundingClientRect();button.style.left=(r.left-h.left+r.width/2)+'px';button.style.top=(r.top-h.top+r.height/2)+'px';button.style.visibility='';continue}
   const area=host.getBoundingClientRect(),half=22,pad=8;
-  const obstacles=[...host.querySelectorAll('img,video,iframe,button,a,input,textarea,select,summary,h1,h2,h3,p,label,legend,.tc-poster,.tc-slide,.motion-world,.original-badge')]
-   .filter(el=>!el.closest('.site-star,.backdrop')&&el.getClientRects().length)
+  const obstacles=[...host.querySelectorAll('img,video,iframe,button,a,input,textarea,select,summary,h1,h2,h3,p,label,legend,figcaption,.detail-tags,.tc-poster,.tc-slide,.motion-world,.original-badge')]
+   .filter(el=>el!==button&&!el.closest('.backdrop')&&el.getClientRects().length)
    .map(el=>el.getBoundingClientRect()).filter(r=>r.width&&r.height);
   const preferredX=area.width*parseFloat(placement.x)/100,preferredY=area.height*parseFloat(placement.y)/100;
   const xs=[preferredX,30,area.width-30,area.width*.04,area.width*.96];
@@ -72,7 +75,8 @@ function placeOnBackground(){
     if(found)break;
    }
   }
-  button.style.visibility=found?'':'hidden';
+  button.style.visibility='';
+  if(!found){space=document.createElement('div');space.className='site-star-space';space.dataset.starSpace=String(placement.id);space.setAttribute('aria-hidden','true');host.append(space);const r=space.getBoundingClientRect(),h=host.getBoundingClientRect();found={x:r.left-h.left+r.width/2,y:r.top-h.top+r.height/2}}
   if(found){button.style.left=found.x+'px';button.style.top=found.y+'px'}
  }
 }
