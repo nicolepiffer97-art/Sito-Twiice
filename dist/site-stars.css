@@ -11,3 +11,9 @@
 #counter .counter-star{width:23px;height:23px;margin-right:3px}
 #counter .counter-caption{font-size:7px;letter-spacing:1.2px;bottom:7px}
 @media(max-width:600px){.site-star{padding:12px}.site-star svg{width:20px;height:20px}#counter{right:14px;bottom:14px}}
+
+/* This visible heading star is collectible 7, not a second decorative star. */
+.night .star-decoration{display:none}
+.site-star.site-star-inline{position:relative;inset:auto;display:inline-flex;align-items:center;justify-content:center;vertical-align:top;width:1em;height:1em;min-width:44px;min-height:44px;padding:8px;transform:none;line-height:1}
+.site-star.site-star-inline svg{width:100%;height:100%}
+.site-star.site-star-inline:hover{transform:scale(1.08)}
