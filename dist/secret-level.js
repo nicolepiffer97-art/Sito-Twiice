@@ -94,7 +94,7 @@ async function openPortal(){
  }));
  function tunnel(now){
   if(stopped)return;
-  const t=Math.min(1,(now-start)/duration);
+  const t=Math.max(0,Math.min(1,(now-start)/duration));
   paint.fillStyle='#10205a';paint.fillRect(0,0,width,height);
   const cx=width/2,cy=height/2,limit=Math.hypot(width,height)*.72;
   const glow=paint.createRadialGradient(cx,cy,0,cx,cy,limit);
