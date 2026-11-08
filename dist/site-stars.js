@@ -9,13 +9,13 @@ let flights=[],raf=0,displayed=collected.size;
 function update(){counter.querySelector('#count').textContent=displayed;counter.setAttribute('aria-label',`${displayed} ${displayed===1?'stella raccolta':'stelle raccolte'} su ${total}${displayed===total?'. Hai esplorato tutto il nostro universo!':''}`);counter.classList.remove('pulse');void counter.offsetWidth;counter.classList.add('pulse')}
 function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
 resize();addEventListener('resize',resize);
-function finish(){displayed++;update()}
+function finish(){displayed++;update();checkCompletion()}
 function position(f,t){const box=counter.getBoundingClientRect();return {x:f.x+(box.left+23-f.x)*t*t,y:f.y+(box.top+20-f.y)*t}}
 function draw(now){ctx.clearRect(0,0,innerWidth,innerHeight);const style=getComputedStyle(document.body),rgb=style.getPropertyValue('--brand-glow-rgb').trim()||'194,253,199',color=style.getPropertyValue('--brand-accent').trim()||'#C2FDC7';flights=flights.filter(f=>{const t=Math.min(1,(now-f.start)/850);if(t===1){finish();return false}for(let i=10;i>0;i--){const a=position(f,Math.max(0,t-i*.009)),b=position(f,Math.max(0,t-(i-1)*.009));ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineWidth=1+(10-i)*.15;ctx.strokeStyle=`rgba(${rgb},${(1-i/11)*.65})`;ctx.lineCap='round';ctx.stroke()}const dot=position(f,t);ctx.beginPath();ctx.arc(dot.x,dot.y,2.5,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();return true});raf=flights.length?requestAnimationFrame(draw):0}
 function collect(id,button){if(!document.body.classList.contains('night')||collected.has(id))return;const box=button.getBoundingClientRect();collected.add(id);try{sessionStorage.setItem(key,JSON.stringify([...collected]))}catch{}button.disabled=true;button.classList.add('collected');if(reduced.matches){finish();return}flights.push({x:box.left+box.width/2,y:box.top+box.height/2,start:performance.now()});if(!raf)raf=requestAnimationFrame(draw)}
 const projectId=new URLSearchParams(location.search).get('id');const projectIds=['astrocane','engineering-2k','coreve','twiice'];const placements=[];
 if(document.querySelector('#sky'))placements.push(
-{id:0,host:'#sky',x:'16%',y:'26%',angle:-12},
+{id:0,host:'#persone',x:'94%',y:'16%',angle:-12},
 {id:6,host:'#universo',x:'92%',y:'70%',angle:18},
 {id:7,host:'#progetti',x:'96%',y:'15%',angle:-18},
 {id:8,host:'#contatto',x:'4%',y:'76%',angle:10});
@@ -30,7 +30,127 @@ if(projectId==='coreve')placements.push({id:11,host:'.detail-gallery',x:'96%',y:
 for(const placement of placements){const host=document.querySelector(placement.host);if(!host)continue;host.classList.add('site-star-host');const b=document.createElement('button');b.type='button';b.dataset.starId=String(placement.id);b.className='star site-star';b.style.cssText=`left:clamp(30px,${placement.x},calc(100% - 30px));top:${placement.y};--angle:${placement.angle}deg`;b.setAttribute('aria-label',`Raccogli la stella ${placement.id+1} di ${total}`);b.innerHTML=`<svg viewBox="0 0 100 100" aria-hidden="true"><path class="fill" d="${paths[placement.id%paths.length]}"/></svg>`;if(collected.has(placement.id)){b.disabled=true;b.classList.add('collected')}b.addEventListener('click',()=>collect(placement.id,b));host.append(b)}
 function syncTheme(){const night=document.body.classList.contains('night');counter.hidden=!night;counter.setAttribute('aria-hidden',String(!night));document.querySelectorAll('.site-star').forEach(b=>{b.hidden=!night});if(!night&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}}
 new MutationObserver(syncTheme).observe(document.body,{attributes:true,attributeFilter:['class']});reduced.addEventListener('change',()=>{if(reduced.matches&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}});
-addEventListener('pageshow',()=>{try{const current=JSON.parse(sessionStorage.getItem(key))??[];if(Array.isArray(current)){collected.clear();current.filter(n=>Number.isInteger(n)&&n>=0&&n<total).forEach(n=>collected.add(n))}}catch{}flights=[];cancelAnimationFrame(raf);raf=0;displayed=collected.size;document.querySelectorAll('.site-star').forEach(b=>{const found=collected.has(Number(b.dataset.starId));b.disabled=found;b.classList.toggle('collected',found)});update();syncTheme()});
+addEventListener('pageshow',()=>{try{const current=JSON.parse(sessionStorage.getItem(key))??[];if(Array.isArray(current)){collected.clear();current.filter(n=>Number.isInteger(n)&&n>=0&&n<total).forEach(n=>collected.add(n))}}catch{}flights=[];cancelAnimationFrame(raf);raf=0;displayed=collected.size;document.querySelectorAll('.site-star').forEach(b=>{const found=collected.has(Number(b.dataset.starId));b.disabled=found;b.classList.toggle('collected',found)});update();syncTheme();checkCompletion()});
+
+/* Finale: collected stars leave the counter, converge, then open a tunnel. */
+const finaleKey='twiice-portal-seen-v1';
+let portalRunning=false;
+function checkCompletion(){
+ let seen=false;try{seen=sessionStorage.getItem(finaleKey)==='true'}catch{}
+ if(displayed===total&&!seen&&document.body.classList.contains('night'))openPortal();
+}
+async function openPortal(){
+ if(portalRunning)return;
+ portalRunning=true;
+ const source=counter.getBoundingClientRect();
+ const dialog=document.createElement('dialog');
+ dialog.className='dimension-portal';
+ dialog.setAttribute('aria-label','Portale dimensionale: hai raccolto tutte le stelle');
+ dialog.innerHTML='<canvas aria-hidden="true"></canvas><div class="portal-convergence" aria-hidden="true"></div><div class="portal-flash" aria-hidden="true"></div><button class="portal-close" type="button" aria-label="Chiudi il portale">×</button><span class="sr-only" role="status">Tutte le stelle si riuniscono. Entriamo in un nuovo universo.</span>';
+ document.body.append(dialog);
+ const previousOverflow=document.body.style.overflow;
+ document.body.style.overflow='hidden';
+ dialog.showModal();
+ let stopped=false,frame=0;
+ const animations=[],timers=new Set();
+ function pause(ms){return new Promise(resolve=>{const id=setTimeout(()=>{timers.delete(id);resolve()},ms);timers.add(id)})}
+ function close(){
+  if(stopped)return;stopped=true;
+  cancelAnimationFrame(frame);
+  animations.forEach(animation=>animation.cancel());
+  for(const timer of timers)clearTimeout(timer);
+  document.body.style.overflow=previousOverflow;
+  if(dialog.open)dialog.close();
+  dialog.remove();portalRunning=false;
+ }
+ dialog.querySelector('button').addEventListener('click',close);
+ dialog.addEventListener('cancel',event=>{event.preventDefault();close()});
+ try{sessionStorage.setItem(finaleKey,'true')}catch{}
+ const surface=dialog.querySelector('canvas'),paint=surface.getContext('2d');
+ let width=innerWidth,height=innerHeight;
+ function fit(){
+  width=innerWidth;height=innerHeight;
+  const dpr=Math.min(devicePixelRatio||1,2);
+  surface.width=width*dpr;surface.height=height*dpr;
+  surface.style.width=width+'px';surface.style.height=height+'px';
+  paint.setTransform(dpr,0,0,dpr,0,0);
+ }
+ fit();
+ const onResize=()=>fit();addEventListener('resize',onResize);
+ dialog.addEventListener('close',()=>removeEventListener('resize',onResize),{once:true});
+ if(reduced.matches){
+  dialog.classList.add('portal-still');
+  await pause(2200);if(!stopped)close();return;
+ }
+ const center=dialog.querySelector('.portal-convergence');
+ for(let i=0;i<total;i++){
+  const star=document.createElement('span');star.className='portal-traveler';
+  star.innerHTML='<svg viewBox="0 0 100 100"><path d="'+paths[i%paths.length]+'"/></svg>';
+  dialog.append(star);
+  const angle=i/total*Math.PI*2,radius=Math.min(width,height)*.11;
+  const x=Math.cos(angle)*radius,y=Math.sin(angle)*radius;
+  star.style.left=width/2+'px';star.style.top=height/2+'px';
+  const animation=star.animate([
+   {transform:'translate('+ (source.left+23-width/2)+'px,'+(source.top+20-height/2)+'px) scale(.35) rotate(-35deg)',opacity:0},
+   {offset:.12,opacity:1},
+   {transform:'translate('+x+'px,'+y+'px) scale(1) rotate('+i*30+'deg)',opacity:1}
+  ],{duration:1050,delay:i*145,easing:'cubic-bezier(.18,.7,.25,1)',fill:'both'});
+  animations.push(animation);
+ }
+ await pause(total*145+1050);
+ if(stopped)return;
+ center.classList.add('is-charged');
+ for(const star of dialog.querySelectorAll('.portal-traveler')){
+  animations.push(star.animate([{transform:getComputedStyle(star).transform,opacity:1},{transform:'translate(0,0) scale(.08) rotate(540deg)',opacity:0}],{duration:650,easing:'cubic-bezier(.7,0,1,1)',fill:'forwards'}));
+ }
+ await pause(580);if(stopped)return;
+ dialog.classList.add('portal-enter');
+ const start=performance.now(),duration=3900;
+ const motes=Array.from({length:130},(_,i)=>({angle:i*2.399963,depth:(i*.618034)%1,radius:.25+(i%13)/17}));
+ function tunnel(now){
+  if(stopped)return;
+  const elapsed=now-start,t=Math.min(1,elapsed/duration),speed=.14+t*.68;
+  paint.fillStyle='#070c24';paint.fillRect(0,0,width,height);
+  paint.save();paint.translate(width/2,height/2);paint.rotate(t*t*1.9);
+  const size=Math.hypot(width,height)*.65;
+  const glow=paint.createRadialGradient(0,0,0,0,0,size);
+  glow.addColorStop(0,'#eefefb');glow.addColorStop(.035,'#c2fdc7');glow.addColorStop(.16,'#4666b8');glow.addColorStop(.5,'#152357');glow.addColorStop(1,'#070c24');
+  paint.fillStyle=glow;paint.fillRect(-size,-size,size*2,size*2);
+  for(let i=0;i<26;i++){
+   const z=((i/26+elapsed*.00022*speed)%1),r=9/(1.03-z);
+   const radius=r*size*.037;
+   paint.beginPath();
+   for(let j=0;j<=100;j++){
+    const angle=j/100*Math.PI*2;
+    const ripple=1+.07*Math.sin(angle*5+i*.5+elapsed*.001);
+    const x=Math.cos(angle)*radius*ripple,y=Math.sin(angle)*radius*ripple*.74;
+    if(j===0)paint.moveTo(x,y);else paint.lineTo(x,y);
+   }
+   paint.closePath();paint.strokeStyle='rgba('+(i%3?'194,253,199':'144,202,240')+','+(Math.sin(z*Math.PI)*.7)+')';
+   paint.lineWidth=1+z*3;paint.shadowColor='#c2fdc7';paint.shadowBlur=12;paint.stroke();
+  }
+  paint.shadowBlur=0;
+  for(const mote of motes){
+   const z=(mote.depth+elapsed*.00022*speed)%1;
+   const r=(1/(1.04-z)-.96)*size*.09*mote.radius;
+   const a=mote.angle+t*.35;
+   paint.beginPath();paint.moveTo(Math.cos(a)*r,Math.sin(a)*r);
+   paint.lineTo(Math.cos(a)*r*(1.03+t*.2),Math.sin(a)*r*(1.03+t*.2));
+   paint.strokeStyle='rgba(234,255,244,'+z+')';paint.lineWidth=.5+z;paint.stroke();
+  }
+  paint.restore();
+  if(t<1)frame=requestAnimationFrame(tunnel);
+  else{dialog.classList.add('portal-exit');pause(800).then(()=>{if(!stopped)close()})}
+ }
+ frame=requestAnimationFrame(tunnel);
+}
+const previewPortal=new URLSearchParams(location.search).get('preview')==='portal';
+if(previewPortal){
+ const preview=document.createElement('button');preview.type='button';preview.className='portal-preview';
+ preview.textContent='Prova il finale ✦';
+ preview.addEventListener('click',openPortal);document.body.append(preview);
+}
+
 window.TwiiceStars={read:()=>[...collected]};update();syncTheme();
 
 /* Keep the fixed counter above the footer, including when page height changes. */

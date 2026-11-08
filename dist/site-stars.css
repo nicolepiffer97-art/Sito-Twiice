@@ -9,3 +9,23 @@
 #counter .counter-star{width:23px;height:23px;margin-right:3px}
 #counter .counter-caption{font-size:7px;letter-spacing:1.2px;bottom:7px}
 @media(max-width:600px){.site-star{padding:12px}.site-star svg{width:20px;height:20px}#counter{right:14px;bottom:14px}}
+
+/* Full-screen dimensional finale, isolated from page layout and navigation. */
+.dimension-portal{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;background:rgba(7,12,36,.88);color:#c2fdc7;z-index:2147483647}
+.dimension-portal::backdrop{background:#070c24b8}
+.dimension-portal canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .45s}
+.portal-traveler{position:absolute;width:40px;height:40px;margin:-20px;pointer-events:none;filter:drop-shadow(0 0 8px #c2fdc7) drop-shadow(0 0 20px #90caf0)}
+.portal-traveler svg{display:block;width:100%;height:100%;fill:#c2fdc7}
+.portal-convergence{position:absolute;left:50%;top:50%;width:15px;height:15px;border-radius:50%;transform:translate(-50%,-50%);background:#edfff3;box-shadow:0 0 50px 15px #c2fdc740;opacity:.1;transition:opacity .6s,box-shadow .6s}
+.portal-convergence.is-charged{opacity:1;box-shadow:0 0 60px 30px #c2fdc7,0 0 160px 70px #90caf0aa}
+.portal-flash{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,#fff 0%,#e6ffed 28%,#a6d8ef 60%,#759aca 100%);opacity:0}
+.portal-enter .portal-flash{animation:portal-blast 1.25s ease-out both}
+.portal-enter canvas{opacity:1}
+.portal-close{position:absolute;right:max(20px,env(safe-area-inset-right));top:max(20px,env(safe-area-inset-top));z-index:5;width:44px;height:44px;border:1px solid #ffffff66;border-radius:50%;background:#070c2466;color:#fff;font-size:28px;cursor:pointer}
+.portal-exit{animation:portal-depart .8s ease both}
+.portal-still{background:radial-gradient(ellipse at center,#c2fdc740,#10205a 60%,#070c24)}
+.portal-still .portal-convergence{opacity:1;box-shadow:0 0 100px 40px #c2fdc760}
+.portal-preview{position:fixed;left:16px;bottom:20px;z-index:80;padding:12px 18px;background:#10205a;color:#c2fdc7;border:1px solid #c2fdc7;border-radius:30px;font:13px var(--font-body);cursor:pointer}
+@keyframes portal-blast{0%{opacity:0;transform:scale(.05);border-radius:50%}28%{opacity:1;transform:scale(1.5);border-radius:0}100%{opacity:0;transform:scale(1.8)}}
+@keyframes portal-depart{to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.dimension-portal,.dimension-portal *{animation:none!important;transition:none!important}}
