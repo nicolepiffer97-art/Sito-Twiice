@@ -41,6 +41,11 @@ async function openPortal(){
  dialog.querySelector('button').addEventListener('click',close);
  dialog.addEventListener('cancel',event=>{event.preventDefault();close()});
  
+ function enterGame(){
+  if(stopped)return;
+  try{sessionStorage.setItem('twiice-portal-entry-v1','true')}catch{}
+  location.assign(previewPortal?previewGame:game);
+ }
  const surface=dialog.querySelector('canvas'),paint=surface.getContext('2d');
  let width=innerWidth,height=innerHeight;
  function fit(){
@@ -55,7 +60,7 @@ async function openPortal(){
  dialog.addEventListener('close',()=>removeEventListener('resize',onResize),{once:true});
  if(reduced.matches){
   dialog.classList.add('portal-still');
-  await pause(1800);if(!stopped){location.assign(previewPortal?previewGame:game)}return;
+  await pause(1800);if(!stopped){enterGame()}return;
  }
 
  const center=dialog.querySelector('.portal-convergence');
@@ -90,10 +95,10 @@ async function openPortal(){
  function tunnel(now){
   if(stopped)return;
   const t=Math.max(0,Math.min(1,(now-start)/duration));
-  paint.fillStyle='#10205a';paint.fillRect(0,0,width,height);
+  paint.fillStyle='#080f24';paint.fillRect(0,0,width,height);
   const cx=width/2,cy=height/2,limit=Math.hypot(width,height)*.72;
   const glow=paint.createRadialGradient(cx,cy,0,cx,cy,limit);
-  glow.addColorStop(0,'#315cbc');glow.addColorStop(.2,'#1a3885');glow.addColorStop(1,'#10205a');
+  glow.addColorStop(0,'#101e40');glow.addColorStop(.2,'#0b1630');glow.addColorStop(1,'#080f24');
   paint.fillStyle=glow;paint.fillRect(0,0,width,height);
   const progress=t*1.3+t*t*2.8;
   paint.lineCap='round';
@@ -113,7 +118,7 @@ async function openPortal(){
    paint.beginPath();paint.moveTo(x1,y1);paint.lineTo(x2,y2);paint.stroke();
   }
   if(t<1)frame=requestAnimationFrame(tunnel);
-  else{dialog.classList.add('portal-arrived');pause(300).then(()=>{if(!stopped){location.assign(previewPortal?previewGame:game)}})}
+  else{dialog.classList.add('portal-arrived');pause(850).then(()=>{if(!stopped){enterGame()}})}
  }
  frame=requestAnimationFrame(tunnel);
 }
