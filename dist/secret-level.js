@@ -63,31 +63,51 @@ async function openPortal(){
   await pause(1800);if(!stopped){enterGame()}return;
  }
 
- const center=dialog.querySelector('.portal-convergence');
- let charge=0;
- const arrivals=[];
- for(let i=0;i<total;i++){
-  const star=document.createElement('span');star.className='portal-traveler';
-  star.innerHTML='<svg viewBox="0 0 100 100"><path d="'+paths[i%paths.length]+'"/></svg>';
-  dialog.append(star);
-  star.style.left='50%';star.style.top='50%';
-  const animation=star.animate([
-   {transform:'translate('+(source.left+23-width/2)+'px,'+(source.top+20-height/2)+'px) scale(.4)',opacity:0},
-   {offset:.08,opacity:1},
-   {offset:.75,transform:'translate('+((source.left+23-width/2)*.13)+'px,'+((source.top+20-height/2)*.13)+'px) scale(.55)',opacity:1},
-   {transform:'translate(0,0) scale(.18)',opacity:1}
-  ],{duration:180,delay:i*24,easing:'cubic-bezier(.3,.1,.35,1)',fill:'both'});
-  animations.push(animation);
-  arrivals.push(animation.finished.then(()=>{
+
+ // Match the collector: 850 ms flights, quadratic horizontal travel and ten trail segments.
+ dialog.classList.add('portal-gathering');
+ const launchX=source.left+23,launchY=source.top+20;
+ const flightTime=850,stagger=130;
+ const style=getComputedStyle(document.body);
+ const rgb=style.getPropertyValue('--brand-glow-rgb').trim()||'194,253,199';
+ const color=style.getPropertyValue('--brand-accent').trim()||'#C2FDC7';
+ const launchTime=performance.now();
+ function point(t){return {x:launchX+(width/2-launchX)*t*t,y:launchY+(height/2-launchY)*t}}
+ await new Promise(resolve=>{
+  function gather(now){
    if(stopped)return;
-   charge++; // Arrivals accumulate at one point; the blast follows immediately.
-  }).catch(()=>{}));
- }
- await Promise.all(arrivals);
+   paint.clearRect(0,0,width,height);
+   let arrived=0;
+   for(let star=0;star<total;star++){
+    const age=now-launchTime-star*stagger;
+    if(age<0)continue;
+    const t=Math.max(0,Math.min(1,age/flightTime));
+    if(t===1){arrived++;continue}
+    for(let i=10;i>0;i--){
+     const a=point(Math.max(0,t-i*.009)),b=point(Math.max(0,t-(i-1)*.009));
+     paint.beginPath();paint.moveTo(a.x,a.y);paint.lineTo(b.x,b.y);
+     paint.lineWidth=1+(10-i)*.15;paint.lineCap='round';
+     paint.strokeStyle='rgba('+rgb+','+((1-i/11)*.65)+')';paint.stroke();
+    }
+    const dot=point(t);
+    paint.beginPath();paint.arc(dot.x,dot.y,2.5,0,Math.PI*2);paint.fillStyle=color;paint.fill();
+   }
+   // Particles overlap at one fixed point; only their brightness adds up.
+   paint.save();paint.globalCompositeOperation='lighter';
+   for(let i=0;i<arrived;i++){
+    paint.beginPath();paint.arc(width/2,height/2,2.5,0,Math.PI*2);
+    paint.fillStyle='rgba('+rgb+',.4)';paint.fill();
+   }
+   paint.restore();
+   if(arrived===total){resolve();return}
+   frame=requestAnimationFrame(gather);
+  }
+  frame=requestAnimationFrame(gather);
+ });
  if(stopped)return;
- center.classList.add('is-charged');
+ dialog.classList.remove('portal-gathering');
  dialog.classList.add('portal-enter');
- const start=performance.now(),duration=3300;
+ const start=performance.now(),duration=2000;
  const rays=Array.from({length:120},(_,i)=>({
   angle:(i/120)*Math.PI*2,depth:((Math.sin(i*127.1)*43758.5453)%1+1)%1,
   reach:.7+(i%11)/14,alpha:.65+(i%7)/20
