@@ -148,7 +148,7 @@ const previewPortal=new URLSearchParams(location.search).get('preview')==='porta
 if(previewPortal){
  const preview=document.createElement('button');preview.type='button';preview.className='portal-preview';
  preview.textContent='Prova il finale ✦';
- preview.addEventListener('click',openPortal);document.body.append(preview);
+ preview.addEventListener('click',()=>{if(!document.body.classList.contains('night'))document.querySelector('#light,#portfolio-light')?.click();requestAnimationFrame(openPortal)});document.body.append(preview);
 }
 
 window.TwiiceStars={read:()=>[...collected]};update();syncTheme();
