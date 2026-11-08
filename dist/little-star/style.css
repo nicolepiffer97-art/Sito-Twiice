@@ -14,3 +14,11 @@ body[data-state="over"] .overlay{z-index:4;background:#080f24dc;padding:70px 20p
 .result-ranking{width:min(100%,560px);max-height:55dvh;overflow-y:auto;text-align:left;margin:12px 0 18px}.result-ranking li{font-size:14px}.overlay>h2+ol{flex:none}#saveNote{max-width:360px;line-height:1.6;text-align:center}
 
 .overlay .result-ranking small,.overlay #saveNote{display:block}
+
+.start-form{display:flex;flex-direction:column;align-items:stretch;gap:10px;width:min(100%,320px);margin-top:20px}
+.start-form label{font-size:12px;color:var(--mint);text-align:left}
+.start-form input{width:100%;min-height:48px;padding:13px 16px;border:1px solid #c2fdc760;border-radius:12px;background:#080f2499;color:#f5f5ee;font:16px Arial,sans-serif}
+.start-form input::placeholder{color:var(--muted);font-size:14px}
+.overlay .start-form small{display:block;font-size:10px;letter-spacing:0;line-height:1.4;color:var(--muted)}
+.start-form .primary{margin-top:3px}
+@media(max-height:550px){.start-form{margin-top:10px;gap:6px}.start-form input{min-height:42px;padding:10px 14px}.overlay .start-form small{font-size:9px}.start-form .primary{padding-block:11px}}

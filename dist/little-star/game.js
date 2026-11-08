@@ -2,6 +2,7 @@ import {beginRun,saveScore,showRanking} from './leaderboard.js?v=20261106-online
 // Little Star: self-contained WebGL ray/sphere renderer; no runtime CDN dependencies.
 const $=id=>document.getElementById(id), canvas=$('sky');
 const gl=canvas.getContext('webgl',{alpha:false,antialias:false});
+let playerName='',runId=0;
 let state='intro',mass=1,score=0,elapsed=0,level=0,player={x:0,z:0,vx:0,vz:0},dust=[],hazards=[],keys=new Set(),pointer=null,last=0,saved=false;
 const stages=['Nana rossa · M','Nana arancione · K','Stella solare · G','Stella blu · B'];
 // Representative effective temperatures, not core temperatures or a universal life cycle.
@@ -37,10 +38,39 @@ function recycleDust(p){p.x=rnd(-xBound()*.82,xBound()*.82);const tail=dust.filt
 function grow(amount,points){mass+=amount;score+=points;const next=mass>=70?3:mass>=30?2:mass>=10?1:0;if(next!==level){level=next;$('message').textContent='✦ '+stages[level].toUpperCase()+' · LA TUA STELLA CRESCE';}}
 function reset(){releaseTouch();mass=visualMass=1;score=0;elapsed=0;level=0;player={x:0,z:5,vx:0,vz:0};saved=false;distance=0;nextEncounter=20;sparks=[];hazards=[];dust=[];for(let i=0;i<18;i++){const p={y:rnd(-.2,.2),vx:0,vz:0};if(i<6){p.x=[-.35,.4,-.15,.25,-.4,.2][i]*xBound();p.z=[-78,-59,-40,-21,-2,17][i]}else recycleDust(p);dust.push(p)};hud()}
 function populate(){if(elapsed<nextEncounter||mass<3)return;const cap=canvas.clientWidth<650?2:3;if(hazards.length>=cap)return;const star=elapsed>=60&&mass>=10&&hazards.every(h=>!h.star);const h={star};recycle(h);hazards.push(h);nextEncounter=elapsed+14;}
-function start(){runPromise=beginRun().catch(()=>null);reset();state='playing';document.body.dataset.state='playing';$('overlay').hidden=true;$('pause').disabled=false;$('pause-panel').hidden=true;$('pause').textContent='Ⅱ';keys.clear();pointer=null;canvas.focus();$('message').textContent='';}
+function start(event){event?.preventDefault();const nameInput=$('player-name');if(nameInput){const name=nameInput.value.trim();nameInput.setCustomValidity(name.length<2?'Inserisci un nome di almeno 2 caratteri.':'');if(!nameInput.reportValidity())return;playerName=name;}if(!playerName)return;runId++;runPromise=beginRun().catch(()=>null);reset();state='playing';document.body.dataset.state='playing';$('overlay').hidden=true;$('pause').disabled=false;$('pause-panel').hidden=true;$('pause').textContent='Ⅱ';keys.clear();pointer=null;canvas.focus();$('message').textContent='';}
 function pause(){if(!['playing','paused'].includes(state))return;releaseTouch();state=state==='playing'?'paused':'playing';$('pause-panel').hidden=state!=='paused';$('pause').textContent=state==='paused'?'▶':'Ⅱ';$('pause').setAttribute('aria-label',state==='paused'?'Riprendi':'Pausa');$('message').textContent=state==='paused'?'PAUSA · P / SPAZIO PER RIPRENDERE':'';keys.clear();pointer=null}
-$('start').onclick=start;$('pause').onclick=$('resume').onclick=pause;
-function end(reason){state='over';document.body.dataset.state='over';releaseTouch();$('pause-panel').hidden=true;$('pause').disabled=true;pointer=null;keys.clear();const o=$('overlay');o.hidden=false;o.innerHTML='<h2 class="game-over-title">Game over</h2><p class="game-over-subtitle">Every star has a story.</p><p id="reason"></p><div class="result"></div><form class="save"><input aria-label="Nome della tua stella" placeholder="Il nome della tua stella" maxlength="18" minlength="2" required><button type="submit">Salva punteggio</button></form><small id="saveNote" role="status">Il nome e il punteggio saranno pubblici.</small><button id="retry" class="primary">Nasci di nuovo <svg class="site-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></button>';$('reason').textContent=stages[level];o.querySelector('.result').textContent=Math.floor(score).toLocaleString('it-IT')+' pt';o.querySelector('form').onsubmit=async e=>{e.preventDefault();if(saved)return;const name=o.querySelector('input').value.trim(),button=o.querySelector('form button'),note=$('saveNote');if(!name)return;button.disabled=true;note.textContent='Controllo del nome e salvataggio…';try{const token=await runPromise;if(!token)throw Error('Partita offline: inizia una nuova partita per entrare in classifica.');const items=await saveScore({token,name,score:Math.floor(score),level,elapsed});saved=true;const retry=$('retry'),heading=document.createElement('h2'),list=document.createElement('ol');heading.textContent='Hall of Stars';list.className='result-ranking';o.replaceChildren(heading,list,retry);showRanking(list,items)}catch(error){note.textContent=error.message||'Salvataggio non disponibile. Riprova.';button.disabled=false}};$('retry').onclick=start}
+$('start-form').onsubmit=start;$('player-name').addEventListener('input',()=> $('player-name').setCustomValidity(''));$('pause').onclick=$('resume').onclick=pause;
+function end(reason){
+ state='over';document.body.dataset.state='over';releaseTouch();$('pause-panel').hidden=true;$('pause').disabled=true;pointer=null;keys.clear();
+ const endedRun=runId,tokenPromise=runPromise;
+ const submission={name:playerName,score:Math.floor(score),level,elapsed};
+ const overlay=$('overlay');overlay.hidden=false;
+ overlay.innerHTML='<h2 class="game-over-title">Game over</h2><p class="game-over-subtitle">Every star has a story.</p><p id="reason"></p><div class="result"></div><small id="saveNote" role="status">Invio del punteggio in classifica…</small><ol class="result-ranking" hidden></ol><button id="retry-save" type="button" hidden>Riprova invio</button><button id="retry" class="primary">Nasci di nuovo <svg class="site-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></button>';
+ $('reason').textContent=stages[level];
+ overlay.querySelector('.result').textContent=submission.score.toLocaleString('it-IT')+' pt';
+ const note=$('saveNote'),list=overlay.querySelector('.result-ranking'),retrySave=$('retry-save');
+ let sending=false;
+ async function publishScore(){
+  if(sending||saved)return;
+  sending=true;retrySave.hidden=true;note.textContent='Invio del punteggio in classifica…';
+  try{
+   const token=await tokenPromise;
+   if(!token)throw Error('Partita offline: inizia una nuova partita per entrare in classifica.');
+   const items=await saveScore({...submission,token});
+   if(runId!==endedRun||state!=='over')return;
+   saved=true;list.hidden=false;note.textContent='Il tuo punteggio è in classifica.';
+   showRanking(list,items);
+  }catch(error){
+   if(runId!==endedRun||state!=='over')return;
+   note.textContent=error.message||'Invio non disponibile. Riprova.';
+   retrySave.hidden=false;
+  }finally{sending=false}
+ }
+ retrySave.onclick=publishScore;
+ $('retry').onclick=start;
+ publishScore();
+}
 function hud(){$('nextLevel').textContent=level<3?'VERSO '+stages[level+1].toUpperCase():'STELLA MASSICCIA · CONTINUA A CRESCERE';$('temperature').textContent=stellarTemperature(visualMass).toLocaleString('it-IT')+' K';$('distance').textContent=Math.floor(distance)+' u';$('score').textContent=String(Math.floor(score)).padStart(6,'0');$('mass').textContent=mass.toFixed(1);$('gravity').textContent=(reach()/3.3).toFixed(1)+'×';$('stage').textContent='0'+(level+1)+' / '+stages[level].toUpperCase();$('time').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(Math.floor(elapsed%60)).padStart(2,'0');const bounds=[1,10,30,70,140];$('progress').style.width=Math.min(100,(mass-bounds[level])/(bounds[level+1]-bounds[level])*100)+'%'}
 function update(dt){elapsed+=dt;score+=dt*.25;smoothGrowth(dt);populate();const cruise=2.3+Math.min(elapsed/90,1.6);distance+=cruise*dt;sparks=sparks.filter(s=>{s.age+=dt;s.z+=cruise*dt;return s.age<.65});let ax=0,az=0;const speed=11/(1+mass*.003);if(keys.has('arrowleft')||keys.has('a'))ax--;if(keys.has('arrowright')||keys.has('d'))ax++;if(keys.has('arrowup')||keys.has('w'))az--;if(keys.has('arrowdown')||keys.has('s'))az++;if(touchOrigin){ax=stick.x;az=stick.z}else if(pointer){ax=Math.max(-1,Math.min(1,(pointer.x-player.x)*.5));az=Math.max(-1,Math.min(1,(pointer.z-player.z)*.5))}const len=Math.hypot(ax,az);if(len>1){ax/=len;az/=len}player.vx+=(ax*speed-player.vx)*Math.min(1,dt*5);player.vz+=(az*speed-player.vz)*Math.min(1,dt*5);
 for(const h of hazards){h.z+=cruise*dt;if(h.z>45+h.r){recycle(h);continue}const dx=h.x-player.x,dz=h.z-player.z,d=Math.hypot(dx,dz),edible=h.star&&mass>h.mass*1.15;if(d<h.r+radius()*.8){if(edible){const bonus=Math.round(12+h.mass*3);collectSpark(h.x,h.z);grow(h.mass*.85,bonus);$('message').textContent='✦ STELLA ASSORBITA · +'+bonus+' PUNTI';recycle(h)}else if(!h.star&&mass>h.mass*1.15){collectSpark(h.x,h.z);grow(h.mass*.12,8);recycle(h)}else{explode(h.star?'Catturata da una stella più massiccia':'Collisione con un asteroide');return}}}

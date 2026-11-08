@@ -71,25 +71,20 @@ async function openPortal(){
    {offset:.08,opacity:1},
    {offset:.75,transform:'translate('+((source.left+23-width/2)*.13)+'px,'+((source.top+20-height/2)*.13)+'px) scale(.55)',opacity:1},
    {transform:'translate(0,0) scale(.18)',opacity:1}
-  ],{duration:900,delay:i*230,easing:'cubic-bezier(.3,.1,.35,1)',fill:'both'});
+  ],{duration:180,delay:i*24,easing:'cubic-bezier(.3,.1,.35,1)',fill:'both'});
   animations.push(animation);
   arrivals.push(animation.finished.then(()=>{
    if(stopped)return;
-   charge++;
-   center.style.setProperty('--charge',charge/total);
-   center.style.opacity=String(.15+charge/total*.85);
-   const pulse=center.animate([{scale:1},{scale:1.3},{scale:1}],{duration:220,easing:'ease-out'});
-   animations.push(pulse);
+   charge++; // Arrivals accumulate at one point; the blast follows immediately.
   }).catch(()=>{}));
  }
  await Promise.all(arrivals);
  if(stopped)return;
  center.classList.add('is-charged');
- await pause(420);if(stopped)return;
  dialog.classList.add('portal-enter');
  const start=performance.now(),duration=3300;
- const rays=Array.from({length:190},(_,i)=>({
-  angle:i*2.3999632297,depth:(i*.61803398875)%1,
+ const rays=Array.from({length:120},(_,i)=>({
+  angle:(i/120)*Math.PI*2,depth:((Math.sin(i*127.1)*43758.5453)%1+1)%1,
   reach:.7+(i%11)/14,alpha:.65+(i%7)/20
  }));
  function tunnel(now){
@@ -100,13 +95,13 @@ async function openPortal(){
   const glow=paint.createRadialGradient(cx,cy,0,cx,cy,limit);
   glow.addColorStop(0,'#315cbc');glow.addColorStop(.2,'#1a3885');glow.addColorStop(1,'#10205a');
   paint.fillStyle=glow;paint.fillRect(0,0,width,height);
-  const progress=t*.8+t*t*2.4;
+  const progress=t*1.3+t*t*2.8;
   paint.lineCap='round';
   for(const ray of rays){
    const depth=(ray.depth+progress)%1;
    const near=Math.pow(depth,2.8);
    const radius=8+near*limit*ray.reach;
-   const length=(12+near*limit*(.08+t*.23));
+   const length=limit*(.36+near*.7);
    const dx=Math.cos(ray.angle),dy=Math.sin(ray.angle);
    const tail=Math.max(1,radius-length);
    const x1=cx+dx*tail,y1=cy+dy*tail,x2=cx+dx*radius,y2=cy+dy*radius;
