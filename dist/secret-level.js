@@ -90,7 +90,7 @@ async function openPortal(){
  const start=performance.now(),duration=3300;
  const rays=Array.from({length:190},(_,i)=>({
   angle:i*2.3999632297,depth:(i*.61803398875)%1,
-  reach:.7+(i%11)/14,alpha:.25+(i%7)/10
+  reach:.7+(i%11)/14,alpha:.65+(i%7)/20
  }));
  function tunnel(now){
   if(stopped)return;
@@ -114,7 +114,7 @@ async function openPortal(){
    streak.addColorStop(0,'rgba(144,202,255,0)');
    streak.addColorStop(.65,'rgba(144,202,255,'+(depth*ray.alpha*.75)+')');
    streak.addColorStop(1,'rgba(237,248,255,'+(depth*ray.alpha)+')');
-   paint.strokeStyle=streak;paint.lineWidth=.5+near*2.3;
+   paint.strokeStyle=streak;paint.lineWidth=.9+near*3.2;
    paint.beginPath();paint.moveTo(x1,y1);paint.lineTo(x2,y2);paint.stroke();
   }
   if(t<1)frame=requestAnimationFrame(tunnel);
