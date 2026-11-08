@@ -2,7 +2,7 @@
 (()=>{
 'use strict';
 const scriptUrl=document.currentScript.src;
-const key='twiice-little-star-unlocked-v1',game=new URL('wonder/',scriptUrl).href;
+const key='twiice-little-star-unlocked-v1',game=new URL('little-star/',scriptUrl).href;
 const previewGame=new URL('little-star/',scriptUrl).href;
 const total=8,reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const previewPortal=new URLSearchParams(location.search).get('preview')==='portal';
@@ -22,6 +22,12 @@ async function openPortal(){
  dialog.setAttribute('aria-label','Portale dimensionale: hai raccolto tutte le stelle');
  dialog.innerHTML='<canvas aria-hidden="true"></canvas><div class="portal-convergence" aria-hidden="true"></div><div class="portal-flash" aria-hidden="true"></div><button class="portal-close" type="button" aria-label="Chiudi il portale">×</button><span class="sr-only" role="status">Tutte le stelle si riuniscono. Entriamo in un nuovo universo.</span>';
  document.body.append(dialog);
+
+ // Warm the destination while the portal is animating.
+ const destinationPrefetch=document.createElement('link');
+ destinationPrefetch.rel='prefetch';destinationPrefetch.href=game;
+ document.head.append(destinationPrefetch);
+
  const previousOverflow=document.body.style.overflow;
  document.body.style.overflow='hidden';
  dialog.showModal();

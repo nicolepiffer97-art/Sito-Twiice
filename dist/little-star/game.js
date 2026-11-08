@@ -108,5 +108,4 @@ canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();if(state==='pl
 
 function drawExplosion(){if(state!=='dying')return;const w=canvas.clientWidth,h=canvas.clientHeight,depth=42*.777+(34-player.z)*.629,up=-42*.629+(34-player.z)*.777,x=w/2+player.x/depth/.62*h/2,y=h/2-up/depth/.62*h/2,t=deathAge;ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.max(0,1-t/1.05);ctx.strokeStyle='#ffbb78';ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,10+t*150,0,Math.PI*2);ctx.stroke();for(let i=0;i<36;i++){const a=i*2.39996,r=t*(65+(i%7)*21),px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;ctx.fillStyle=i%3?'#ffdca4':'#c2fdc7';ctx.beginPath();ctx.arc(px,py,Math.max(.5,4*(1-t)),0,Math.PI*2);ctx.fill()}ctx.restore()}
 
-// Reveal the game only once its first rendered frame is ready.
-requestAnimationFrame(()=>requestAnimationFrame(()=>document.documentElement.classList.add('portal-entry-ready')));
+
