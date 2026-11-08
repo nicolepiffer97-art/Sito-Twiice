@@ -15,7 +15,7 @@ function draw(now){ctx.clearRect(0,0,innerWidth,innerHeight);const style=getComp
 function collect(id,button){if(!document.body.classList.contains('night')||collected.has(id))return;const box=button.getBoundingClientRect();collected.add(id);try{sessionStorage.setItem(key,JSON.stringify([...collected]))}catch{}button.disabled=true;button.classList.add('collected');if(reduced.matches){finish();return}flights.push({x:box.left+box.width/2,y:box.top+box.height/2,start:performance.now()});if(!raf)raf=requestAnimationFrame(draw)}
 const projectId=new URLSearchParams(location.search).get('id');const projectIds=['astrocane','engineering-2k','coreve','twiice'];const placements=[];
 if(document.querySelector('#sky'))placements.push(
-{id:0,host:'#sky',x:'16%',y:'26%',angle:-12},
+{id:0,host:'#persone',x:'94%',y:'16%',angle:-12},
 {id:6,host:'#universo',anchor:'.text-star',x:'92%',y:'70%',angle:18},
 {id:7,host:'#progetti',x:'96%',y:'15%',angle:-18});
 else if(document.querySelector('#catalog-rows'))placements.push(
