@@ -6,7 +6,7 @@ const paths=["M46.33 4.0 L48.53 5.83 L51.83 17.2 L56.96 31.12 L59.9 30.76 L87.75
 const counter=document.createElement('div');counter.id='counter';counter.setAttribute('role','status');counter.setAttribute('aria-live','polite');counter.setAttribute('aria-atomic','true');counter.innerHTML=`<svg class="counter-star" viewBox="0 0 100 100" aria-hidden="true"><path d="${paths[0]}"/></svg><span id="count">0</span><span class="slash">/</span><span>${total}</span><span class="counter-caption">STELLE TROVATE</span>`;document.body.append(counter);
 const canvas=document.createElement('canvas');canvas.id='trails';canvas.setAttribute('aria-hidden','true');document.body.append(canvas);const ctx=canvas.getContext('2d');
 let flights=[],raf=0,displayed=collected.size;
-function update(){counter.querySelector('#count').textContent=displayed;counter.setAttribute('aria-label',`${displayed} ${displayed===1?'stella raccolta':'stelle raccolte'} su ${total}${displayed===total?'. Hai esplorato tutto il nostro universo!':''}`);counter.classList.remove('pulse');void counter.offsetWidth;counter.classList.add('pulse')}
+function update(){counter.querySelector('#count').textContent=displayed;counter.setAttribute('aria-label',`${displayed} ${displayed===1?'stella raccolta':'stelle raccolte'} su ${total}${displayed===total?'. Hai esplorato tutto il nostro universo!':''}`);counter.classList.remove('pulse');void counter.offsetWidth;counter.classList.add('pulse');checkCompletion()}
 function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
 resize();addEventListener('resize',resize);
 function finish(){displayed++;update();checkCompletion()}
@@ -65,7 +65,7 @@ async function openPortal(){
  }
  dialog.querySelector('button').addEventListener('click',close);
  dialog.addEventListener('cancel',event=>{event.preventDefault();close()});
- try{sessionStorage.setItem(finaleKey,'true')}catch{}
+ if(!previewPortal){try{sessionStorage.setItem(finaleKey,'true')}catch{}}
  const surface=dialog.querySelector('canvas'),paint=surface.getContext('2d');
  let width=innerWidth,height=innerHeight;
  function fit(){

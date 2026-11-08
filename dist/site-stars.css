@@ -29,3 +29,6 @@
 @keyframes portal-blast{0%{opacity:0;transform:scale(.05);border-radius:50%}28%{opacity:1;transform:scale(1.5);border-radius:0}100%{opacity:0;transform:scale(1.8)}}
 @keyframes portal-depart{to{opacity:0}}
 @media(prefers-reduced-motion:reduce){.dimension-portal,.dimension-portal *{animation:none!important;transition:none!important}}
+
+/* Leave room for the relocated star below the People cards on narrow screens. */
+#persone.site-star-host{padding-bottom:110px}
