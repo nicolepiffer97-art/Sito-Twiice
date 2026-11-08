@@ -2,20 +2,20 @@
 
 [Apri la pagina Progetti](https://nicolepiffer97-art.github.io/Sito-Twiice/progetti.html).
 
-La pagina `dist/progetti.html` apre con una fascia di immagini a scorrimento. Il titolo «Progetti» e il sottotitolo rimangono fissi in un livello separato dalle immagini: non ci sono testi, descrizioni o pulsanti dei singoli progetti nella fascia. Le cinque immagini in evidenza mantengono frecce laterali, scorrimento automatico e comandi da tastiera; pallini e pulsante pausa sono rimossi. Il movimento si ferma al passaggio del mouse, al focus, quando la pagina non è visibile e con la preferenza di movimento ridotto. Sotto rimane la griglia di tutti i 14 progetti, senza scorrimento laterale. Categorie e ricerca seguono direttamente la fascia, senza un secondo titolo. I cinque pulsanti riprendono lo stile arrotondato del sito: **Tutti i progetti** è selezionato all’apertura, seguito dalle quattro categorie.
+La pagina `dist/progetti.html` apre con una fascia di immagini a scorrimento. Il titolo «Progetti» e il sottotitolo rimangono fissi in un livello separato dalle immagini: non ci sono testi, descrizioni o pulsanti dei singoli progetti nella fascia. Le cinque immagini in evidenza mantengono frecce laterali, scorrimento automatico e comandi da tastiera; pallini e pulsante pausa sono rimossi. Il movimento si ferma al passaggio del mouse, al focus, quando la pagina non è visibile e con la preferenza di movimento ridotto. Sotto rimane la griglia di tutti i 13 progetti, senza scorrimento laterale. Categorie e ricerca seguono direttamente la fascia, senza un secondo titolo. I cinque pulsanti riprendono lo stile arrotondato del sito: **Tutti i progetti** è selezionato all’apertura, seguito dalle quattro categorie.
 
 ## Categorie
 
 - **Identità e comunicazione:** Engineering 2K.
-- **Immagini e movimento:** Astrocane, CoReVe, The Coffin, gallery-dl-windows-gui, yt-dlp-windows-gui, batch-image-resizer.
-- **Esperienza e interazione:** TWIICE, before-after-slider, camera-motion-studio.
+- **Immagini e movimento:** Astrocane, CoReVe, The Coffin, BIB - Batch Image Board, gallery-dl-windows-gui, yt-dlp-windows-gui.
+- **Esperienza e interazione:** TWIICE, camera-motion-studio.
 - **AI tools:** ComfyUI-RPNodes, realtime-captions-system-audio-gui, chatbot_ZURU, chatbot_semplice.
 
 Le assegnazioni sono in `projectCategories` in `dist/catalog.js`. Ogni progetto ha una categoria; la vista iniziale li mostra tutti una volta sola. La ricerca filtra la griglia e si combina con la categoria selezionata. La ricerca è disponibile soltanto nel campo «Cerca un progetto…» sopra la griglia; l’header non contiene un secondo comando Cerca. I filtri e la ricerca agiscono sulla griglia e non ricostruiscono la fascia superiore. I vecchi frammenti come `#all` e `#search` vengono rimossi dall’indirizzo e aprono la griglia unica.
 
 ## Contenuti e interazioni
 
-I quattro lavori di Nicole/TWIICE vengono letti da `dist/projects-data.js` e aprono le schede originali `progetto.html?id=…`. Le nove repository di Raffaele sono in `dist/repositories-data.js` e aprono GitHub in una nuova scheda. Il titolo è sotto l’immagine e apre direttamente il progetto. I pulsanti informativi e le relative finestre sono rimossi dalla fascia e dalla griglia. In **Tutti i progetti**, il sottotitolo indica soltanto la categoria; nei filtri di categoria il sottotitolo è assente. La funzione di salvataggio nella lista e i relativi pulsanti sono stati rimossi, da tutta la pagina. Le immagini sono prive di etichette sovrapposte. Le schede, immagini, video e contenuti originali dei progetti restano invariati.
+I quattro lavori di Nicole/TWIICE vengono letti da `dist/projects-data.js` e aprono le schede originali `progetto.html?id=…`. Le sette repository di Raffaele sono in `dist/repositories-data.js` e aprono GitHub in una nuova scheda. Il titolo è sotto l’immagine e apre direttamente il progetto. I pulsanti informativi e le relative finestre sono rimossi dalla fascia e dalla griglia. In **Tutti i progetti**, il sottotitolo indica soltanto la categoria; nei filtri di categoria il sottotitolo è assente. La funzione di salvataggio nella lista e i relativi pulsanti sono stati rimossi, da tutta la pagina. Le immagini sono prive di etichette sovrapposte. Le schede, immagini, video e contenuti originali dei progetti restano invariati.
 
 Il tema condivide la chiave `twiice-night` in `sessionStorage` con il resto del sito. La griglia è in `catalog.css`, la fascia e il titolo fisso in `catalog-hero.css`, palette e header in `catalog-theme.css`. Home, schede originali, stelle e movimento dell’header continuano a usare i propri file condivisi.
 
@@ -44,3 +44,9 @@ La nuova scheda segue un percorso lineare: video principale in grande, titolo e 
 La galleria apre un dialogo modale con frecce precedente/successiva, tasti ←/→, Esc, chiusura sullo sfondo e swipe su touch. Lo scorrimento torna alla prima immagine dopo l’ultima. Il dialogo trattiene il focus e lo restituisce alla miniatura alla chiusura. Verificati catalogo, ricerca e categoria, ordine dei contenuti, quattro colonne desktop, due colonne mobile e assenza di overflow. YouTube può rifiutare il video principale dall’origine locale: verificare il lettore sul dominio pubblico dopo la pubblicazione.
 
 Il video principale apre direttamente la scheda, senza collegamento di ritorno sopra: mantiene il formato 16:9 e si adatta anche all’altezza visibile, per essere interamente visibile sotto l’header senza scroll iniziale.
+
+## BIB - Batch Image Board
+
+[Apri la scheda BIB](https://nicolepiffer97-art.github.io/Sito-Twiice/progetto.html?id=bib).
+
+BIB rientra in **Immagini e movimento**. I dati sono in `dist/bib-data.js` e riusano il layout video di The Coffin, con descrizione e link diretto al [tool](https://raffaele-pet.github.io/BIB-Batch-Image-Board/). BIB sostituisce nel catalogo le due voci batch-image-resizer e before-after-slider.

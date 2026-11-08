@@ -106,58 +106,6 @@ window.TWIICE_REPOSITORIES = [
     ]
   },
   {
-    "name": "batch-image-resizer",
-    "url": "https://github.com/raffaele-pet/batch-image-resizer",
-    "title": "Batch Image",
-    "subtitle": "RESIZER",
-    "image": "assets/catalog/desert.jpg",
-    "categories": [
-      "images",
-      "web"
-    ],
-    "kicker": "Più immagini. Meno passaggi.",
-    "description": "Ridimensiona, disponi ed esporta più immagini direttamente nel browser.",
-    "language": "HTML",
-    "updated": "2026-09-18T15:00:05Z",
-    "id": "repo-batch-image-resizer",
-    "author": "Raffaele",
-    "type": "repository",
-    "kind": "HTML · Open source",
-    "imageClass": "landscape",
-    "external": true,
-    "tags": [
-      "HTML",
-      "images",
-      "web"
-    ]
-  },
-  {
-    "name": "before-after-slider",
-    "url": "https://github.com/raffaele-pet/before-after-slider",
-    "title": "Before / After",
-    "subtitle": "A NEW PERSPECTIVE",
-    "image": "assets/catalog/mountain.jpg",
-    "categories": [
-      "images",
-      "web"
-    ],
-    "kicker": "Scopri la differenza",
-    "description": "Confronta immagini prima e dopo, con uno slider interattivo, controlli di zoom e registrazione video.",
-    "language": "HTML",
-    "updated": "2026-09-18T14:44:20Z",
-    "id": "repo-before-after-slider",
-    "author": "Raffaele",
-    "type": "repository",
-    "kind": "HTML · Open source",
-    "imageClass": "landscape",
-    "external": true,
-    "tags": [
-      "HTML",
-      "images",
-      "web"
-    ]
-  },
-  {
     "name": "camera-motion-studio",
     "url": "https://github.com/raffaele-pet/camera-motion-studio",
     "title": "Camera Motion",
