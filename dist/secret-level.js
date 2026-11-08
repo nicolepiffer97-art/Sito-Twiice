@@ -115,6 +115,8 @@ async function openPortal(){
  function tunnel(now){
   if(stopped)return;
   const t=Math.max(0,Math.min(1,(now-start)/duration));
+  // Fade over the final 800 ms while continuing to draw moving rays.
+  if(t>=.6)dialog.classList.add('portal-arrived');
   paint.fillStyle='#080f24';paint.fillRect(0,0,width,height);
   const cx=width/2,cy=height/2,limit=Math.hypot(width,height)*.72;
   const glow=paint.createRadialGradient(cx,cy,0,cx,cy,limit);
@@ -138,7 +140,7 @@ async function openPortal(){
    paint.beginPath();paint.moveTo(x1,y1);paint.lineTo(x2,y2);paint.stroke();
   }
   if(t<1)frame=requestAnimationFrame(tunnel);
-  else{dialog.classList.add('portal-arrived');pause(850).then(()=>{if(!stopped){enterGame()}})}
+  else enterGame();
  }
  frame=requestAnimationFrame(tunnel);
 }
