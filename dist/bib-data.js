@@ -6,6 +6,7 @@ window.TWIICE_PROJECTS.push({
   category: 'Immagini e movimento',
   kind: 'Applicazione web',
   image: 'assets/bib/cover.webp',
+  imageSource: 'https://drive.google.com/file/d/1W56o33o66jXnP_WoomuT9oyN2UM6oUUs/view',
   imageClass: 'landscape',
   description: 'Resize, compare and select images directly in your browser.',
   site: 'https://raffaele-pet.github.io/BIB-Batch-Image-Board/',
