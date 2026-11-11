@@ -1,4 +1,16 @@
 (()=>{'use strict';
+const placements=[];
+if(document.querySelector('#sky'))placements.push(
+ {id:0,host:'#sky',x:'16%',y:'26%',angle:-12},
+ {id:6,host:'#universo',anchor:'.text-star',x:'92%',y:'70%',angle:18},
+ {id:2,host:'#mondi',x:'23%',y:'50%',angle:-9,relocated:true},
+ {id:7,host:'#progetti',x:'96%',y:'15%',angle:-18},
+ {id:3,host:'#persone',x:'78%',y:'50%',angle:15,relocated:true},
+ {id:4,host:'#contatto',x:'32%',y:'50%',angle:-14,relocated:true});
+else if(document.querySelector('#catalog-rows'))placements.push(
+ {id:5,host:'.catalog-content',before:'.tc-page-head',x:'79%',y:'50%',angle:-9,relocated:true},
+ {id:1,host:'.catalog-content',x:'95%',y:'23%',angle:14});
+if(!placements.length)return;
 const total=8,key='twiice-site-stars-v2',reduced=matchMedia('(prefers-reduced-motion:reduce)');
 let saved=[];try{saved=JSON.parse(sessionStorage.getItem(key))??[]}catch{}
 const collected=new Set(Array.isArray(saved)?saved.filter(n=>Number.isInteger(n)&&n>=0&&n<total):[]);
@@ -13,18 +25,9 @@ function finish(){displayed++;update()}
 function position(f,t){const box=counter.getBoundingClientRect();return {x:f.x+(box.left+23-f.x)*t*t,y:f.y+(box.top+20-f.y)*t}}
 function draw(now){ctx.clearRect(0,0,innerWidth,innerHeight);const style=getComputedStyle(document.body),rgb=style.getPropertyValue('--brand-glow-rgb').trim()||'194,253,199',color=style.getPropertyValue('--brand-accent').trim()||'#C2FDC7';flights=flights.filter(f=>{const t=Math.min(1,(now-f.start)/850);if(t===1){finish();return false}for(let i=10;i>0;i--){const a=position(f,Math.max(0,t-i*.009)),b=position(f,Math.max(0,t-(i-1)*.009));ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineWidth=1+(10-i)*.15;ctx.strokeStyle=`rgba(${rgb},${(1-i/11)*.65})`;ctx.lineCap='round';ctx.stroke()}const dot=position(f,t);ctx.beginPath();ctx.arc(dot.x,dot.y,2.5,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();return true});raf=flights.length?requestAnimationFrame(draw):0}
 function collect(id,button){if(!document.body.classList.contains('night')||collected.has(id))return;const box=button.getBoundingClientRect();collected.add(id);try{sessionStorage.setItem(key,JSON.stringify([...collected]))}catch{}button.disabled=true;button.classList.add('collected');if(reduced.matches){finish();return}flights.push({x:box.left+box.width/2,y:box.top+box.height/2,start:performance.now()});if(!raf)raf=requestAnimationFrame(draw)}
-const projectId=new URLSearchParams(location.search).get('id');const projectIds=['astrocane','engineering-2k','coreve','twiice'];const placements=[];
-if(document.querySelector('#sky'))placements.push(
-{id:0,host:'#sky',x:'16%',y:'26%',angle:-12},
-{id:6,host:'#universo',anchor:'.text-star',x:'92%',y:'70%',angle:18},
-{id:7,host:'#progetti',x:'96%',y:'15%',angle:-18});
-else if(document.querySelector('#catalog-rows'))placements.push(
-{id:1,host:'.catalog-content',x:'95%',y:'23%',angle:14});
-else if(document.querySelector('.detail-story')&&projectIds.includes(projectId)){
-placements.push({id:2+projectIds.indexOf(projectId),host:'.detail-story',x:'95%',y:'32%',angle:-9});
-}
 for(const placement of placements){const host=document.querySelector(placement.host);if(!host)continue;host.classList.add('site-star-host');const b=document.createElement('button');b.type='button';b.dataset.starId=String(placement.id);b.className='star site-star';b.style.cssText=`left:clamp(30px,${placement.x},calc(100% - 30px));top:${placement.y};--angle:${placement.angle}deg`;b.setAttribute('aria-label',`Raccogli la stella ${placement.id+1} di ${total}`);b.innerHTML=`<svg viewBox="0 0 100 100" aria-hidden="true"><path class="fill" d="${paths[placement.id%paths.length]}"/></svg>`;if(collected.has(placement.id)){b.disabled=true;b.classList.add('collected')}b.addEventListener('click',()=>collect(placement.id,b));const anchor=placement.anchor&&host.querySelector(placement.anchor);if(anchor){anchor.classList.add('star-decoration');b.classList.add('text-star','site-star-inline');b.style.cssText=`--angle:${placement.angle}deg`;anchor.after(b)}else host.append(b)}
-function syncTheme(){const night=document.body.classList.contains('night');counter.hidden=!night;counter.setAttribute('aria-hidden',String(!night));document.querySelectorAll('.site-star').forEach(b=>{b.hidden=!night});if(!night&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}}
+let placementFrame=0;
+function syncTheme(){schedulePlacement();const night=document.body.classList.contains('night');counter.hidden=!night;counter.setAttribute('aria-hidden',String(!night));document.querySelectorAll('.site-star').forEach(b=>{b.hidden=!night});if(!night&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}}
 new MutationObserver(syncTheme).observe(document.body,{attributes:true,attributeFilter:['class']});reduced.addEventListener('change',()=>{if(reduced.matches&&flights.length){displayed+=flights.length;flights=[];cancelAnimationFrame(raf);raf=0;ctx.clearRect(0,0,innerWidth,innerHeight);update()}});
 addEventListener('pageshow',()=>{try{const current=JSON.parse(sessionStorage.getItem(key))??[];if(Array.isArray(current)){collected.clear();current.filter(n=>Number.isInteger(n)&&n>=0&&n<total).forEach(n=>collected.add(n))}}catch{}flights=[];cancelAnimationFrame(raf);raf=0;displayed=collected.size;document.querySelectorAll('.site-star').forEach(b=>{const found=collected.has(Number(b.dataset.starId));b.disabled=found;b.classList.toggle('collected',found)});update();syncTheme()});
 window.TwiiceStars={read:()=>[...collected]};update();syncTheme();
@@ -44,7 +47,6 @@ if(footer){
 }
 
 /* Find empty background space; never place collectibles over content or controls. */
-let placementFrame=0;
 function placeOnBackground(){
  placementFrame=0;
  for(const placement of placements){
@@ -53,8 +55,24 @@ function placeOnBackground(){
   // Give every content-section star its own space at every breakpoint.
   // The sky has a fixed height, so only its star uses background-space search.
   let space=host.querySelector('[data-star-space="'+placement.id+'"]');
-  if(placement.host!=='#sky'&&!space){space=document.createElement('div');space.className='site-star-space';space.dataset.starSpace=String(placement.id);space.setAttribute('aria-hidden','true');host.append(space)}
-  if(space){const r=space.getBoundingClientRect(),h=host.getBoundingClientRect();button.style.left=(r.left-h.left+r.width/2)+'px';button.style.top=(r.top-h.top+r.height/2)+'px';button.style.visibility='';continue}
+  if(placement.host!=='#sky'&&!space){
+   space=document.createElement('div');
+   space.className='site-star-space';
+   space.dataset.starSpace=String(placement.id);
+   space.setAttribute('aria-hidden','true');
+   if(placement.relocated)space.classList.add('site-star-space-relocated');
+   const next=placement.before&&host.querySelector(placement.before);
+   if(next)next.before(space);
+   else host.append(space);
+  }
+  if(space){
+   const r=space.getBoundingClientRect(),h=host.getBoundingClientRect();
+   const x=placement.relocated?r.width*parseFloat(placement.x)/100:r.width/2;
+   button.style.left=(r.left-h.left+Math.max(22,Math.min(r.width-22,x)))+'px';
+   button.style.top=(r.top-h.top+r.height/2)+'px';
+   button.style.visibility='';
+   continue;
+  }
   const area=host.getBoundingClientRect(),half=22,pad=8;
   const obstacles=[...host.querySelectorAll('img,video,iframe,button,a,input,textarea,select,summary,h1,h2,h3,p,label,legend,figcaption,.detail-tags,.tc-poster,.tc-slide,.motion-world,.original-badge')]
    .filter(el=>el!==button&&!el.closest('.backdrop')&&el.getClientRects().length)

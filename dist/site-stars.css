@@ -1,8 +1,9 @@
-/* Eight small collectible stars across the entire site. */
+/* Eight collectible stars on the homepage and project catalog. */
 .site-star-host{position:relative}
 .site-star{width:44px;height:44px;padding:11px;z-index:9;line-height:0;pointer-events:auto;touch-action:manipulation;transform:translate(-50%,-50%)}
 .site-star svg{display:block;width:22px;height:22px;pointer-events:none;transform:rotate(var(--angle))}
 .site-star-space{display:block;grid-column:1/-1;width:100%;height:80px;min-height:80px;flex:none;clear:both;pointer-events:none}
+body:not(.night) .site-star-space-relocated{display:none}
 .site-star .fill,.night .site-star .fill{stroke:none;fill:var(--brand-accent);filter:drop-shadow(0 0 3px rgba(var(--brand-glow-rgb),.22))}
 .site-star:hover{transform:translate(-50%,-50%) scale(1.13)}
 .site-star.collected{pointer-events:none}
